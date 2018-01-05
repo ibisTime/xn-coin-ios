@@ -135,8 +135,8 @@
 
     } else {
         
-        param.busiId = 6898;
-
+        param.busiId = PUSH_DIS_BUSI_ID;
+        
     }
     NSLog(@"%d",param.busiId);
     param.token = deviceToken;
