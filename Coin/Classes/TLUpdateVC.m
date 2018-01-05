@@ -59,16 +59,16 @@
         [TLProgressHUD dismiss];
         [self removePlaceholderView];
         
-        NSDictionary *resutltDict = data;
+//        NSDictionary *resutltDict = data;
 #warning 这种判断只适用于，第一次审核。审核通过之后，第二次提交审核这种判断要改掉
         // !!!!! 这种判断
         //1.1在审核中
-        if ([resutltDict[@"resultCount"] isEqual:@0]) {
-
-          [AppConfig config].isChecking = true;
-          [self setRootVC];
-           return;
-        }
+//        if ([resutltDict[@"resultCount"] isEqual:@0]) {
+//
+//          [AppConfig config].isChecking = true;
+//          [self setRootVC];
+//           return;
+//        }
         
         //审核通过
         [AppConfig config].isChecking = false;
@@ -93,7 +93,7 @@
 //        }
         
         //2.2 用户正常使用
-//        [self configUpdate];
+        [self configUpdate];
  
     } abnormality:nil failure:^(NSError *error) {
         
@@ -122,51 +122,51 @@
     
 }
 
-//#pragma mark - Config
-//- (void)configUpdate {
-//
-//    //1:iOS 2:安卓
-//    TLNetworking *http = [[TLNetworking alloc] init];
-//
-//    http.code = @"625918";
-//    http.parameters[@"type"] = @"ios-c";
-//
-//    [http postWithSuccess:^(id responseObject) {
-//
-//        UpdateModel *update = [UpdateModel mj_objectWithKeyValues:responseObject[@"data"]];
-//
-//        //获取当前版本号
-//        NSString *currentVersion = [self buildVersion];
-//
-//        if (![currentVersion isEqualToString:update.version]) {
-//
-//            if ([update.forceUpdate isEqualToString:@"0"]) {
-//
-//                //不强制
-//                [TLAlert alertWithTitle:@"更新提醒" msg:update.note confirmMsg:@"立即升级" cancleMsg:@"稍后提醒" cancle:^(UIAlertAction *action) {
-//
-//                } confirm:^(UIAlertAction *action) {
-//
-//                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[update.downloadUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
-//
-//                }];
-//
-//            } else {
-//
-//                //强制
-//                [TLAlert alertWithTitle:@"更新提醒" message:update.note confirmMsg:@"立即升级" confirmAction:^{
-//
-//                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[update.downloadUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
-//
-//                }];
-//            }
-//        }
-//
-//    } failure:^(NSError *error) {
-//
-//    }];
-//
-//}
+#pragma mark - Config
+- (void)configUpdate {
+
+    //1:iOS 2:安卓
+    TLNetworking *http = [[TLNetworking alloc] init];
+
+    http.code = @"625918";
+    http.parameters[@"type"] = @"ios-c";
+
+    [http postWithSuccess:^(id responseObject) {
+
+        UpdateModel *update = [UpdateModel mj_objectWithKeyValues:responseObject[@"data"]];
+
+        //获取当前版本号
+        NSString *currentVersion = [self buildVersion];
+        //
+        if (![currentVersion isEqualToString:update.version]) {
+
+            if ([update.forceUpdate isEqualToString:@"0"]) {
+
+                //不强制
+                [TLAlert alertWithTitle:@"更新提醒" msg:update.note confirmMsg:@"立即升级" cancleMsg:@"稍后提醒" cancle:^(UIAlertAction *action) {
+
+                } confirm:^(UIAlertAction *action) {
+
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[update.downloadUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
+
+                }];
+
+            } else {
+
+                //强制
+                [TLAlert alertWithTitle:@"更新提醒" message:update.note confirmMsg:@"立即升级" confirmAction:^{
+
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[update.downloadUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
+
+                }];
+            }
+        }
+
+    } failure:^(NSError *error) {
+
+    }];
+
+}
 
 - (void)setRootVC {
     
