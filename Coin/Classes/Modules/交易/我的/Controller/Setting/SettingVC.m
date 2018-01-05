@@ -271,6 +271,7 @@
     
     http.code = USER_INFO;
     http.parameters[@"userId"] = [TLUser user].userId;
+    
     [http postWithSuccess:^(id responseObject) {
         
         NSDictionary *userInfo = responseObject[@"data"];
