@@ -358,7 +358,6 @@
 		2EB039A71FE8B23300589D8E /* EditEmailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB039A61FE8B23300589D8E /* EditEmailVC.m */; };
 		2EB039AA1FE8EA3C00589D8E /* UserPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB039A91FE8EA3C00589D8E /* UserPhotoView.m */; };
 		2EB039AD1FE8EDE300589D8E /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB039AC1FE8EDE300589D8E /* UserInfo.m */; };
-		2EB039B21FE940D300589D8E /* manifest.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2EB039B11FE940D300589D8E /* manifest.xml */; };
 		2EB039B51FEA0B4500589D8E /* TLUpdateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB039B31FEA0B4500589D8E /* TLUpdateVC.m */; };
 		2EB949541FDE6D6D00CE4B94 /* LangChooseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB949531FDE6D6D00CE4B94 /* LangChooseVC.m */; };
 		2EB9495A1FDF6B1A00CE4B94 /* ZMChineseConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB949561FDF6B1A00CE4B94 /* ZMChineseConvert.m */; };
@@ -1252,7 +1251,6 @@
 		2EB039A91FE8EA3C00589D8E /* UserPhotoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserPhotoView.m; sourceTree = "<group>"; };
 		2EB039AB1FE8EDE300589D8E /* UserInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		2EB039AC1FE8EDE300589D8E /* UserInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
-		2EB039B11FE940D300589D8E /* manifest.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = manifest.xml; sourceTree = "<group>"; };
 		2EB039B31FEA0B4500589D8E /* TLUpdateVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLUpdateVC.m; sourceTree = "<group>"; };
 		2EB039B41FEA0B4500589D8E /* TLUpdateVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLUpdateVC.h; sourceTree = "<group>"; };
 		2EB949521FDE6D6D00CE4B94 /* LangChooseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LangChooseVC.h; sourceTree = "<group>"; };
@@ -3598,7 +3596,6 @@
 				2E394FA31FB0546E00BA0829 /* Classes */,
 				211C013A1FC6600300E51FCF /* Extension */,
 				2EA584C01FA813C900C7106C /* Assets.xcassets */,
-				2EB039B11FE940D300589D8E /* manifest.xml */,
 				2EA584C21FA813C900C7106C /* LaunchScreen.storyboard */,
 				2EA584C51FA813C900C7106C /* Info.plist */,
 				2EA584C61FA813C900C7106C /* main.m */,
@@ -4045,7 +4042,6 @@
 				2EE361071FFA09A800A5C3EB /* 27.gif in Resources */,
 				2EE360F11FFA09A800A5C3EB /* MicroVideoSource.xcassets in Resources */,
 				2EE361121FFA09A800A5C3EB /* 7.gif in Resources */,
-				2EB039B21FE940D300589D8E /* manifest.xml in Resources */,
 				21205D071FCD6394003C6C7C /* README.txt in Resources */,
 				2EFFE6A51FF3A22700BFCC40 /* ZDCChat.bundle in Resources */,
 				2EE360F61FFA09A800A5C3EB /* youtubeauty.bundle in Resources */,
