@@ -13,7 +13,7 @@
 #import "AppConfig.h"
 #import "IMAPlatform.h"
 #import "IMAConversation.h"
-#import <TLSUI/TLSUI.h>
+//#import <TLSUI/TLSUI.h>
 #import "TestVC.h"
 #import <IMGroupExt/IMGroupExt.h>
 
@@ -64,14 +64,7 @@
     return manager;
 }
 
-- (void)testPlayGround {
-    
-    TLSUILoginSetting *setting = [[TLSUILoginSetting alloc] init];
-    TestVC *testVC = [[TestVC alloc] init];
-    TLSUILogin(testVC,setting);
-    _testVC = testVC;
-    
-}
+
 
 
 

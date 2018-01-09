@@ -449,8 +449,6 @@
 		2EE361271FFA09A800A5C3EB /* ChatInputTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE360CD1FFA09A800A5C3EB /* ChatInputTextView.m */; };
 		2EE361281FFA09A800A5C3EB /* TIMElem+ChatAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE360CF1FFA09A800A5C3EB /* TIMElem+ChatAttachment.m */; };
 		2EE3612D1FFA1B2F00A5C3EB /* ChatInputToolBarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE3612C1FFA1B2F00A5C3EB /* ChatInputToolBarDelegate.m */; };
-		2EE361301FFA6CF000A5C3EB /* TLSUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2EE3612E1FFA6CEE00A5C3EB /* TLSUI.bundle */; };
-		2EE361311FFA6CF000A5C3EB /* TLSUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE3612F1FFA6CEF00A5C3EB /* TLSUI.framework */; };
 		2EE361341FFA6EB800A5C3EB /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE361331FFA6EB800A5C3EB /* TestVC.m */; };
 		2EE361361FFB7D4500A5C3EB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2EE361351FFB7D4500A5C3EB /* README.md */; };
 		2EE950C01FB05B2400429257 /* TLHangQingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE950BF1FB05B2400429257 /* TLHangQingVC.m */; };
@@ -1399,8 +1397,6 @@
 		2EE3612A1FFA167100A5C3EB /* ImageHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageHeader.h; sourceTree = "<group>"; };
 		2EE3612B1FFA1B2F00A5C3EB /* ChatInputToolBarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatInputToolBarDelegate.h; sourceTree = "<group>"; };
 		2EE3612C1FFA1B2F00A5C3EB /* ChatInputToolBarDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatInputToolBarDelegate.m; sourceTree = "<group>"; };
-		2EE3612E1FFA6CEE00A5C3EB /* TLSUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TLSUI.bundle; sourceTree = "<group>"; };
-		2EE3612F1FFA6CEF00A5C3EB /* TLSUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TLSUI.framework; sourceTree = "<group>"; };
 		2EE361321FFA6EB800A5C3EB /* TestVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestVC.h; sourceTree = "<group>"; };
 		2EE361331FFA6EB800A5C3EB /* TestVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestVC.m; sourceTree = "<group>"; };
 		2EE361351FFB7D4500A5C3EB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -1455,7 +1451,6 @@
 				211C01421FC6600300E51FCF /* ImSDK.framework in Frameworks */,
 				21C91D8D1FDBD64D006EDB16 /* AlipaySDK.framework in Frameworks */,
 				211C01471FC6600300E51FCF /* IMMessageExt.framework in Frameworks */,
-				2EE361311FFA6CF000A5C3EB /* TLSUI.framework in Frameworks */,
 				211C01461FC6600300E51FCF /* IMGroupExt.framework in Frameworks */,
 				211C01451FC6600300E51FCF /* IMFriendshipExt.framework in Frameworks */,
 				2EFFE6B51FF6289600BFCC40 /* libsqlite3.0.tbd in Frameworks */,
@@ -1740,8 +1735,6 @@
 		211C013B1FC6600300E51FCF /* 腾讯云 */ = {
 			isa = PBXGroup;
 			children = (
-				2EE3612E1FFA6CEE00A5C3EB /* TLSUI.bundle */,
-				2EE3612F1FFA6CEF00A5C3EB /* TLSUI.framework */,
 				211C013C1FC6600300E51FCF /* ImSDK.framework */,
 				211C013D1FC6600300E51FCF /* TLSSDK.framework */,
 				211C013E1FC6600300E51FCF /* QALSDK.framework */,
@@ -4061,7 +4054,6 @@
 				2EE361361FFB7D4500A5C3EB /* README.md in Resources */,
 				21C91D8C1FDBD64D006EDB16 /* AlipaySDK.bundle in Resources */,
 				2EB9495C1FDF6B1A00CE4B94 /* TraditionalCode.txt in Resources */,
-				2EE361301FFA6CF000A5C3EB /* TLSUI.bundle in Resources */,
 				2EE361051FFA09A800A5C3EB /* 23.gif in Resources */,
 				2EE361181FFA09A800A5C3EB /* 8.gif in Resources */,
 			);

@@ -8,8 +8,8 @@
 
 #import "TLBaseVC.h"
 
-#import <TLSUI/TLSUI.h>
+//#import <TLSUI/TLSUI.h>
 
-@interface TestVC : TLBaseVC<TLSUILoginListener>
+@interface TestVC : TLBaseVC
 
 @end

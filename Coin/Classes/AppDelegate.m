@@ -335,6 +335,8 @@
         TLTabBarController *tabBarCtrl = [[TLTabBarController alloc] init];
         self.window.rootViewController = tabBarCtrl;
         
+        AppRegiste
+        
     }
     
 }
