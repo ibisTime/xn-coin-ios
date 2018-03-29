@@ -270,7 +270,7 @@
 //    [self.view addSubview:topView];
     
     //币种切换
-    _coinChangeView = [[CoinChangeView alloc] initWithFrame:CGRectMake(15, 0, 68, _topView.height)];
+    _coinChangeView = [[CoinChangeView alloc] initWithFrame:CGRectMake(15, 0, 70, _topView.height)];
     
     NSArray *textArr = [CoinUtil shouldDisplayTokenCoinArray];
     
