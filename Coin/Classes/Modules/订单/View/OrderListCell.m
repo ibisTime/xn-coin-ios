@@ -271,10 +271,10 @@
     
     // 获取未读消息
 //    NSString *userId = order.isBuy ? order.sellUserInfo.userId: order.buyUserInfo.userId;
-   TIMConversation *groupConversation = [[TIMManager sharedInstance] getConversation:TIM_GROUP receiver:_order.code];
-    NSInteger unReadCount = [groupConversation getUnReadMessageNum];
-    self.unReadLbl.text = [NSString stringWithFormat:@"%ld", unReadCount];
-    self.unReadLbl.hidden = unReadCount == 0 ? YES: NO;
+//   TIMConversation *groupConversation = [[TIMManager sharedInstance] getConversation:TIM_GROUP receiver:_order.code];
+//    NSInteger unReadCount = [groupConversation getUnReadMessageNum];
+//    self.unReadLbl.text = [NSString stringWithFormat:@"%ld", unReadCount];
+    self.unReadLbl.hidden =  YES;
     
 }
 

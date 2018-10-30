@@ -26,6 +26,7 @@
 
 @property (nonatomic,strong) TLTableView *orderTableView;
 @property (nonatomic,assign) BOOL isFirst;
+@property (nonatomic, strong) NSTimer *timer;
 
 @end
 
@@ -50,9 +51,16 @@
         });
         
     }
+    self.timer = [NSTimer timerWithTimeInterval:60*10 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+}
+- (void)timerAction
+{
+    
+    [self.orderTableView beginRefreshing];
+    
     
 }
-
 
 - (void)reloadData {
     
@@ -317,6 +325,12 @@
     
 }
 
-
+-(void)dealloc
+{
+    [self.timer invalidate];
+    self.timer = nil;
+    
+    
+}
 @end
 

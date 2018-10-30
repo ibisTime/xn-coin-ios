@@ -47,7 +47,7 @@
     CGFloat btnMargin = 15;
     
     //账号
-    TLTextField *phoneTf = [[TLTextField alloc] initWithFrame:CGRectMake(margin, 10, w, h) leftTitle:[LangSwitcher switchLang:@"手机号" key:nil] titleWidth:100 placeholder:[LangSwitcher switchLang:@"请输入手机号" key:nil]];
+     TLTextField *phoneTf = [[TLTextField alloc] initWithFrame:CGRectMake(margin, 10, w, h) leftTitle:[LangSwitcher switchLang:@"账号" key:nil] titleWidth:100 placeholder:[LangSwitcher switchLang:@"请输入手机号或邮箱" key:nil]];
     phoneTf.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:phoneTf];
     self.phoneTf = phoneTf;
@@ -110,15 +110,21 @@
     
     if (![self.phoneTf.text isPhoneNum]) {
         
-        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入正确的手机号" key:nil]];
-        
+        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入正确的账号" key:nil]];
+
         return;
     }
     
     TLNetworking *http = [TLNetworking new];
     http.showView = self.view;
-    http.code = CAPTCHA_CODE;
-    http.parameters[@"bizType"] = USER_FIND_PWD_CODE;
+    if([self.phoneTf.text containsString:@"@"])
+    {
+        http.code = EMAIL_CODE;
+        
+    }else{
+        http.code = CAPTCHA_CODE;
+        
+    }    http.parameters[@"bizType"] = USER_FIND_PWD_CODE;
     http.parameters[@"mobile"] = self.phoneTf.text;
     
     [http postWithSuccess:^(id responseObject) {
@@ -138,7 +144,7 @@
     
     if (![self.phoneTf.text isPhoneNum]) {
         
-        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入正确的手机号" key:nil]];
+        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入正确的账号" key:nil]];
         
         return;
     }

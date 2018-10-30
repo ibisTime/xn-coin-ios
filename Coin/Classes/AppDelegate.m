@@ -71,7 +71,7 @@
     [self configRootViewController];
     
     //初始化, 聊天
-    [[ChatManager sharedManager] initChat];
+//    [[ChatManager sharedManager] initChat];
     
     // 配置zendesk
     [self configZendesk];

@@ -91,9 +91,10 @@
     }];
     
     //账号
+    //账号
     AccountTf *phoneTf = [[AccountTf alloc] initWithFrame:CGRectMake(0, 0, w, h)];
     phoneTf.leftIconView.image = [UIImage imageNamed:@"手机"];
-    phoneTf.placeHolder = [LangSwitcher switchLang:@"请输入手机号码" key:nil];
+    phoneTf.placeHolder = [LangSwitcher switchLang:@"请输入手机号或邮箱" key:nil];
     [bgView addSubview:phoneTf];
     self.phoneTf = phoneTf;
     phoneTf.keyboardType = UIKeyboardTypeNumberPad;
@@ -204,8 +205,8 @@
     
     if (![self.phoneTf.text isPhoneNum]) {
         
-        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入正确的手机号" key:nil]];
-        
+        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入正确的账号" key:nil]];
+
         return;
     }
     

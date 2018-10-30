@@ -11,6 +11,7 @@
 
 //验证码
 #define CAPTCHA_CODE @"805950"
+#define EMAIL_CODE @"805952"
 
 //用户
 #define USER_REG_CODE @"805041"//注册

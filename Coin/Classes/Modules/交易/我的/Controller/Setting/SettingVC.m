@@ -29,6 +29,7 @@
 #import "TLAlert.h"
 #import "NSString+Check.h"
 #import "TLProgressHUD.h"
+#import "AlipaiVC.h"
 
 @interface SettingVC ()
 
@@ -191,8 +192,27 @@
         }
     }];
     
+    SettingModel *aliPay = [SettingModel new];
+    aliPay.text = [LangSwitcher switchLang:@"收款码" key:nil];
+    self.emailSettingModel = aliPay;
+    [aliPay setAction:^{
+        
+        AlipaiVC *editVC = [[AlipaiVC alloc] init];
+        [editVC setDone:^(NSString *content){
+            
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:1];
+            SettingCell *cell = [weakSelf.tableView cellForRowAtIndexPath:indexPath];
+            
+            cell.rightLabel.text = @"支付宝收款码";
+            
+            [weakSelf.tableView reloadData];
+            
+        }];
+        //
+        [weakSelf.navigationController pushViewController:editVC animated:YES];
+    }];
     self.group = [SettingGroup new];
-    self.group.sections = @[@[changeTradePwd], @[idAuth, bindEmail, changeLoginPwd,changeMobile, google]];
+    self.group.sections = @[@[changeTradePwd], @[idAuth, bindEmail, changeLoginPwd,changeMobile, google,aliPay]];
     
 }
 

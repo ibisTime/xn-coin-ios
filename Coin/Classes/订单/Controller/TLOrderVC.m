@@ -335,26 +335,26 @@
             [objs enumerateObjectsUsingBlock:^(OrderModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 
                 if ([[OrderModel ingStatusList] indexOfObject:obj.status] != NSNotFound) {
-                    
-                    TIMConversation *conversation =  [[TIMManager sharedInstance] getConversation:TIM_GROUP receiver:obj.code];
-                    
-                    int unReadMessageNum = conversation.getUnReadMessageNum;
-                    if (unReadMessageNum > 0) {
-                        ingUnReadCount += unReadMessageNum;
-                        [self.ingUnReadModel.unReadCurrencyList addObject:obj.tradeCoin];
-                    }
+//
+//                    TIMConversation *conversation =  [[TIMManager sharedInstance] getConversation:TIM_GROUP receiver:obj.code];
+//
+//                    int unReadMessageNum = conversation.getUnReadMessageNum;
+//                    if (unReadMessageNum > 0) {
+//                        ingUnReadCount += unReadMessageNum;
+//                        [self.ingUnReadModel.unReadCurrencyList addObject:obj.tradeCoin];
+//                    }
                     
                 }
                 
                 if ([[OrderModel endStatusList] indexOfObject:obj.status] != NSNotFound) {
                     
-                    TIMConversation *conversation =  [[TIMManager sharedInstance] getConversation:TIM_GROUP receiver:obj.code];
+//                    TIMConversation *conversation =  [[TIMManager sharedInstance] getConversation:TIM_GROUP receiver:obj.code];
                     
-                    int unReadMessageNum = conversation.getUnReadMessageNum;
-                    if (unReadMessageNum > 0) {
-                        endUnReadCount += unReadMessageNum;
-                        [self.endUnReadModel.unReadCurrencyList addObject:obj.tradeCoin];
-                    }
+//                    int unReadMessageNum = conversation.getUnReadMessageNum;
+//                    if (unReadMessageNum > 0) {
+//                        endUnReadCount += unReadMessageNum;
+//                        [self.endUnReadModel.unReadCurrencyList addObject:obj.tradeCoin];
+//                    }
                     
                 }
                 

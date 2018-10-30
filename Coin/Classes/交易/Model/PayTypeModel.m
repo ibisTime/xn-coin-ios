@@ -28,26 +28,13 @@ NSString *const kPayTypeBank = @"2";
     NSInteger index = [payType integerValue];
     
     switch (index) {
-        case 0:
+            case 0:
         {
             self.text = [LangSwitcher switchLang:ALI key:nil];
             self.color = [UIColor colorWithHexString:@"#48b0fb"];
             
         }break;
-         
-        case 1:
-        {
-            self.text = [LangSwitcher switchLang:WX key:nil];
-            self.color = [UIColor colorWithHexString:@"#2ac64c"];
-
-        }break;
             
-        case 2:
-        {
-            self.text = [LangSwitcher switchLang:BANK key:nil];
-            self.color = [UIColor colorWithHexString:@"#f15353"];
-
-        }break;
             
         default:
             break;
@@ -57,10 +44,8 @@ NSString *const kPayTypeBank = @"2";
 + (NSArray <NSString *> *)payTypeNames {
     
     return @[
-             [LangSwitcher switchLang:ALI key:nil],
-             [LangSwitcher switchLang:WX key:nil],
-             [LangSwitcher switchLang:BANK key:nil]
-          ];
+             [LangSwitcher switchLang:ALI key:nil]
+             ];
     
 }
 
@@ -70,10 +55,7 @@ NSString *const kPayTypeBank = @"2";
     static NSDictionary *dict = nil;
     dict =  @{
               
-              kPayTypeAliPay : [LangSwitcher switchLang:ALI key:nil],
-              kPayTypeWX     : [LangSwitcher switchLang:WX key:nil],
-              kPayTypeBank   : [LangSwitcher switchLang:BANK key:nil]
-              
+              kPayTypeAliPay : [LangSwitcher switchLang:ALI key:nil]
               };
     
     return dict[type];

@@ -23,16 +23,16 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        //左
-        self.chatBtn = [[UIButton alloc] init];
-        [self addSubview:self.chatBtn];
-        [self.chatBtn setTitleColor:[UIColor textColor] forState:UIControlStateNormal];
-        [self.chatBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-        [self.chatBtn setTitle:[LangSwitcher switchLang:@"联系对方" key:nil]
-                      forState:UIControlStateNormal];
-        [self.chatBtn setImage:[UIImage imageNamed:@"聊天"] forState:UIControlStateNormal];
-        [self.chatBtn setBackgroundColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        
+//        //左
+//        self.chatBtn = [[UIButton alloc] init];
+//        [self addSubview:self.chatBtn];
+//        [self.chatBtn setTitleColor:[UIColor textColor] forState:UIControlStateNormal];
+//        [self.chatBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+//        [self.chatBtn setTitle:[LangSwitcher switchLang:@"联系对方" key:nil]
+//                      forState:UIControlStateNormal];
+//        [self.chatBtn setImage:[UIImage imageNamed:@"聊天"] forState:UIControlStateNormal];
+//        [self.chatBtn setBackgroundColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//
         //右
         self.opBtn = [[UIButton alloc] init];
         [self.opBtn setBackgroundColor:[UIColor themeColor] forState:UIControlStateNormal];
@@ -40,14 +40,14 @@
 
         //
         //
-        [self.chatBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.bottom.top.equalTo(self);
-            make.width.equalTo(self.mas_width).dividedBy(2);
-        }];
+//        [self.chatBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.bottom.top.equalTo(self);
+//            make.width.equalTo(self.mas_width).dividedBy(2);
+//        }];
         
         [self.opBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.right.bottom.equalTo(self);
-            make.width.equalTo(self.mas_width).dividedBy(2);
+            make.width.equalTo(self.mas_width);
         }];
         
     }
