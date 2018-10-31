@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - AliyunOSSiOS (2.10.5)
   - CDCommon (1.0.3):
     - CDCommon/Category (= 1.0.3)
     - CDCommon/Frame (= 1.0.3)
@@ -49,6 +50,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (= 3.1.0)
+  - AliyunOSSiOS
   - CDCommon
   - IQKeyboardManager (= 5.0.2)
   - JPush
@@ -66,6 +68,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
+    - AliyunOSSiOS
     - HappyDNS
     - IQKeyboardManager
     - JCore
@@ -93,6 +96,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AliyunOSSiOS: 53df437f24309bdfbe2df21b4f6be4f75474f00a
   CDCommon: 3551a469e0787c1c7ffdb8d2e2ba912747b903a1
   HappyDNS: 691a3041128055d09866f86e6e9ca90f24da1f18
   IQKeyboardManager: 5ab84749f20f682f784160c2c63bef4f19d10d26
@@ -109,6 +113,6 @@ SPEC CHECKSUMS:
   UIDeviceIdentifier: 9281343882e24460235f00a0d7d2fc04a65688c6
   ZendeskSDK: 4e075d7610e74755c576188886a073cfc5810145
 
-PODFILE CHECKSUM: 7f1956292e46b54d770c5d17771fc63da683b1ec
+PODFILE CHECKSUM: 5b400b85cd2a97390038ce09b59e1a69974d687c
 
 COCOAPODS: 1.5.2

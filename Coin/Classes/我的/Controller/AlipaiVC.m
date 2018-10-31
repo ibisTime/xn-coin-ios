@@ -18,6 +18,7 @@
 #import "CaptchaView.h"
 #import "TLImagePicker.h"
 #import "TLUploadManager.h"
+#import <UIImageView+WebCache.h>
 @interface AlipaiVC ()
 @property (nonatomic, strong) TLTextField *contentTf;
 //@property (nonatomic, strong) TLTextField *codeTf;
@@ -40,7 +41,7 @@
     
     [super viewDidAppear:animated];
     
-    [self.contentTf becomeFirstResponder];
+//    [self.contentTf becomeFirstResponder];
     
 }
 
@@ -63,26 +64,31 @@
             
             UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
             NSData *imgData = UIImageJPEGRepresentation(image, 0.1);
-            
+            weakSelf.QRimageView.image = image;
             //进行上传
             TLUploadManager *manager = [TLUploadManager manager];
             
             manager.imgData = imgData;
             manager.image = image;
-            [manager getTokenShowView:weakSelf.view succes:^(NSString *key) {
-                
-                [weakSelf changeHeadIconWithKey:key imgData:imgData];
-                
+            [manager upLoadImageToAliYunWithData:image succes:^(NSString *token) {
+
+                [weakSelf changeHeadIconWithKey:token imgData:imgData];
+
             } failure:^(NSError *error) {
                 
             }];
+           
         };
     }
     
     return _imagePicker;
 }
 
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.view endEditing:YES];
+    [super viewWillAppear:animated];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -104,12 +110,14 @@
                                              titleWidth:120
                                             placeholder:[LangSwitcher switchLang:@"请输入支付宝账号"    key:nil]];
     
-    
+    if ([TLUser user].zfbAccount) {
+        self.contentTf.text = [TLUser user].zfbAccount;
+    }
     self.contentTf.keyboardType = UIKeyboardTypeEmailAddress;
     [self.view addSubview:self.contentTf];
     
     
-    UIImageView *QRimageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, self.contentTf.yy+20, kScreenWidth -60, 200)];
+    UIImageView *QRimageView = [[UIImageView alloc] initWithFrame:CGRectMake(160, self.contentTf.yy+20, 150, 150)];
     self.QRimageView = QRimageView;
     QRimageView.contentMode = UIViewContentModeScaleToFill;
     QRimageView.userInteractionEnabled = YES;
@@ -118,9 +126,21 @@
     QRimageView.layer.borderWidth = 0.5;
     QRimageView.layer.borderColor = kLineColor.CGColor;
     
-    UIButton *addButton = [UIButton buttonWithTitle:@"点击上传二维码图片" titleColor:kTextColor backgroundColor:kClearColor titleFont:15];
+    if ([TLUser user].zfbQr) {
+        [QRimageView sd_setImageWithURL:[NSURL URLWithString:[[TLUser user].zfbQr convertImageUrl]]];
+        
+        
+    }
+    UILabel *introLab  = [UILabel labelWithTitle:@"上传收款码" frame:CGRectMake(10, self.contentTf.yy+30, 100, 30)];
+    [self.view addSubview:introLab];
+    introLab.textColor = kTextColor;
+    introLab.font = [UIFont systemFontOfSize:14];
+    
+    
+    UIButton *addButton = [UIButton buttonWithTitle:@"" titleColor:kTextColor backgroundColor:kClearColor titleFont:13];
     self.addButton = addButton;
-    addButton.frame = CGRectMake(30, self.contentTf.yy+20, kScreenWidth -60, 100);
+    addButton.frame = CGRectMake(30, self.contentTf.yy+80, 40, 40);
+    [addButton setBackgroundImage:kImage(@"添加") forState:UIControlStateNormal];
     [self.view addSubview:addButton];
     
     [addButton addTarget:self action:@selector(takePhoto) forControlEvents:UIControlEventTouchUpInside];
@@ -156,17 +176,8 @@
 //    [http postWithSuccess:^(id responseObject) {
     
         [TLAlert alertWithSucces:[LangSwitcher switchLang:@"上传成功" key:nil]];
-    self.addButton.hidden = YES;
-    self.QRimageView.image = [UIImage imageWithData:imgData];
-//        [TLUser user].photo = key;
-    
-//        [[TLUser user] updateUserInfoWithNotification:NO];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoChange object:nil];
-//
-//    } failure:^(NSError *error) {
-//
-//
-//    }];
+//    self.addButton.hidden = YES;
+
     
 }
 
@@ -230,7 +241,7 @@
         http.parameters[@"zfbQr"] =self.key;
         [http postWithSuccess:^(id responseObject) {
         
-        [TLAlert alertWithSucces:[LangSwitcher switchLang:@"上次二维码成功" key:nil]];
+        [TLAlert alertWithSucces:[LangSwitcher switchLang:@"上传二维码成功" key:nil]];
         
         [self.navigationController popViewControllerAnimated:YES];
 //        if (self.done) {

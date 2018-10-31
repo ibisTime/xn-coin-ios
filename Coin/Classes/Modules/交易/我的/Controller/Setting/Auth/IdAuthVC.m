@@ -28,7 +28,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = [LangSwitcher switchLang:@"身份认证" key:nil];
+    self.title = [LangSwitcher switchLang:@"实名认证" key:nil];
     
     [self initSubviews];
 
@@ -128,7 +128,7 @@
             
         } else {
             
-            [TLAlert alertWithSucces:[LangSwitcher switchLang:@"身份认证成功" key:nil]];
+            [TLAlert alertWithSucces:[LangSwitcher switchLang:@"实名认证成功" key:nil]];
 
             [self.navigationController popViewControllerAnimated:YES];
 

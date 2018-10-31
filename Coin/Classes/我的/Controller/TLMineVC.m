@@ -415,16 +415,21 @@
             
             //进行上传
             TLUploadManager *manager = [TLUploadManager manager];
-            
-            manager.imgData = imgData;
-            manager.image = image;
-            [manager getTokenShowView:weakSelf.view succes:^(NSString *key) {
-                
-                [weakSelf changeHeadIconWithKey:key imgData:imgData];
-                
+            [manager upLoadImageToAliYunWithData:image succes:^(NSString *token) {
+                [weakSelf changeHeadIconWithKey:token imgData:imgData];
+//                [manager downLoadImageWithToken:token];
             } failure:^(NSError *error) {
-                
+                NSLog(@"%@",error);
+
             }];
+//            manager.imgData = imgData;
+//            manager.image = image;
+//            [manager getTokenShowView:weakSelf.view succes:^(NSString *key) {
+//
+//
+//            } failure:^(NSError *error) {
+            
+//            }];
         };
     }
     
@@ -524,7 +529,7 @@
         [TLAlert alertWithSucces:[LangSwitcher switchLang:@"修改头像成功" key:nil]];
         
         [TLUser user].photo = key;
-        
+        [self changeInfo];
         [[TLUser user] updateUserInfoWithNotification:NO];
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoChange object:nil];
         

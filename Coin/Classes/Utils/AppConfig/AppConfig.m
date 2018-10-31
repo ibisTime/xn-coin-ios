@@ -47,24 +47,24 @@ void TLLog(NSString *format, ...) {
             
         case RunEnvRelease: {
             
-            self.qiniuDomain = @"http://pfrd87t13.bkt.clouddn.com";
+            self.qiniuDomain = @"http://kkkotc.oss-cn-shenzhen.aliyuncs.com/";
 //            self.addr = @"https://www.bcoin.im/api";
-            self.addr = @"http://47.52.77.214:4001";
-            
+            self.addr = @"https://kkkotc.com/api";
+
         }break;
             
         case RunEnvDev: {
             //apidev.bcoin.im:4001
-            self.qiniuDomain = @"http://pfrd87t13.bkt.clouddn.com";
-//            self.addr = @"http://178.128.31.228:5501";
-            self.addr = @"http://13.211.205.147:5501";
+            self.qiniuDomain = @"http://kkkotc.oss-cn-shenzhen.aliyuncs.com/";
+//            self.addr = @"178.128.208.125:5501";
+            self.addr = @"https://loveotc.com/api";
 
         }break;
             
         case RunEnvTest: {
             
-            self.qiniuDomain = @"http://pfrd87t13.bkt.clouddn.com";
-            self.addr = @"http://47.96.161.183:4001";
+            self.qiniuDomain = @"http://kkkotc.oss-cn-shenzhen.aliyuncs.com/";
+            self.addr = @"https://kkkotc.com/api";
 
         } break;
             

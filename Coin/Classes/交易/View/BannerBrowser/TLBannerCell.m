@@ -48,7 +48,7 @@
         
     } else { //本地图片
     
-        self.imageIV.image = [UIImage imageWithContentsOfFile:_urlString];
+        self.imageIV.image = [UIImage imageNamed:_urlString];
     
     }
 

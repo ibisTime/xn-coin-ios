@@ -239,10 +239,10 @@
     
     //先退出腾讯云，才算退出成功
     //im 退出
-    [TLProgressHUD showWithStatus:nil];
-    [[IMAPlatform sharedInstance] logout:^{
-        [TLProgressHUD dismiss];
-        
+//    [TLProgressHUD showWithStatus:nil];
+//    [[IMAPlatform sharedInstance] logout:^{
+//        [TLProgressHUD dismiss];
+    
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginOutNotification object:nil];
         
         TLTabBarController *tabbarVC = (TLTabBarController *)self.tabBarController;
@@ -252,12 +252,12 @@
             [self.navigationController popViewControllerAnimated:NO];
             
         });
-        //
-    } fail:^(int code, NSString *msg) {
-        
-        [TLAlert alertWithInfo:@"退出登录失败"];
-        
-    }];
+//        //
+//    } fail:^(int code, NSString *msg) {
+//
+//        [TLAlert alertWithInfo:@"退出登录失败"];
+//
+//    }];
         
 }
 

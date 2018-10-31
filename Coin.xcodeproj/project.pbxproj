@@ -508,6 +508,9 @@
 		B863B9552188A5E400F54F87 /* IMSDKBugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B863B93C2188A5E300F54F87 /* IMSDKBugly.framework */; };
 		B863B9562188A5E400F54F87 /* IMMessageExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B863B93D2188A5E300F54F87 /* IMMessageExt.framework */; };
 		B863B9592188AB8800F54F87 /* AlipaiVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B863B9582188AB8700F54F87 /* AlipaiVC.m */; };
+		B8FFE11921897CB50064E454 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 211C050D1FC6716500E51FCF /* libresolv.tbd */; };
+		B8FFE11A21897CCA0064E454 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5F19211FED0CC100100420 /* SystemConfiguration.framework */; };
+		B8FFE11C2189F9CA0064E454 /* imagekkk.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FFE11B2189F9C90064E454 /* imagekkk.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1554,6 +1557,7 @@
 		B863B93D2188A5E300F54F87 /* IMMessageExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IMMessageExt.framework; sourceTree = "<group>"; };
 		B863B9572188AB8600F54F87 /* AlipaiVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlipaiVC.h; sourceTree = "<group>"; };
 		B863B9582188AB8700F54F87 /* AlipaiVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlipaiVC.m; sourceTree = "<group>"; };
+		B8FFE11B2189F9C90064E454 /* imagekkk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imagekkk.png; path = "Coin/Assets.xcassets/交易/imagekkk.imageset/imagekkk.png"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1561,6 +1565,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8FFE11A21897CCA0064E454 /* SystemConfiguration.framework in Frameworks */,
+				B8FFE11921897CB50064E454 /* libresolv.tbd in Frameworks */,
 				B863B9412188A5E300F54F87 /* ZDCChat.framework in Frameworks */,
 				2EFFE6B31FF6287D00BFCC40 /* UserNotifications.framework in Frameworks */,
 				2EFFE6B21FF6286600BFCC40 /* CoreTelephony.framework in Frameworks */,
@@ -3638,6 +3644,7 @@
 			children = (
 				2E426168202842EC00913DCF /* test */,
 				2EB039971FE79ADF00589D8E /* UIColor+theme.h */,
+				B8FFE11B2189F9C90064E454 /* imagekkk.png */,
 				2EB039961FE79ADF00589D8E /* UIColor+theme.m */,
 				2E973FD01FDBC57C005C2D5F /* View */,
 				2E394FF31FB057B200BA0829 /* TLNavigationController.h */,
@@ -4337,6 +4344,7 @@
 				B863B9422188A5E300F54F87 /* ZDCChatStrings.bundle in Resources */,
 				2EE360F11FFA09A800A5C3EB /* MicroVideoSource.xcassets in Resources */,
 				2EE361121FFA09A800A5C3EB /* 7.gif in Resources */,
+				B8FFE11C2189F9CA0064E454 /* imagekkk.png in Resources */,
 				2EE360F61FFA09A800A5C3EB /* youtubeauty.bundle in Resources */,
 				2EE3611A1FFA09A800A5C3EB /* 14.gif in Resources */,
 				2EA584C11FA813C900C7106C /* Assets.xcassets in Resources */,

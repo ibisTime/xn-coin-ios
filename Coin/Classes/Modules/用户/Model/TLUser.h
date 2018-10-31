@@ -76,6 +76,12 @@
 //邀请人个数
 @property (nonatomic, copy) NSString *referrerNum;
 
+//支付宝账号
+@property (nonatomic, copy) NSString *zfbAccount;
+
+//支付宝收款码
+@property (nonatomic, copy) NSString *zfbQr;
+
 //实名认证的 --- 临时参数
 @property (nonatomic, copy) NSString *tempBizNo;
 @property (nonatomic, copy) NSString *tempRealName;
@@ -117,6 +123,7 @@
 
 //更新登录时间
 - (void)changLoginTime;
+- (void)loadTengxunYun;
 
 @end
 

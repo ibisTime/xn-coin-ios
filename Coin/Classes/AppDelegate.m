@@ -34,8 +34,8 @@
 #import "RespHandler.h"
 #import <NBHTTP/NBNetwork.h>
 #import "CoinModel.h"
-
-
+#import <AliyunOSSiOS.h>
+#import "TLUploadManager.h"
 #import "TLPublishInputView.h"
 
 @interface AppDelegate ()
@@ -52,7 +52,7 @@
 //    [NSThread sleepForTimeInterval:2];
     
     //服务器环境
-    [AppConfig config].runEnv = RunEnvRelease;
+    [AppConfig config].runEnv = RunEnvDev;
     [AppConfig config].isChecking = YES;
 //    [AppConfig config].isUploadCheck = YES;
     self.respHandler = [[RespHandler alloc] init];
@@ -69,7 +69,7 @@
     
     //配置根控制器
     [self configRootViewController];
-    
+    [self configAliyun];
     //初始化, 聊天
 //    [[ChatManager sharedManager] initChat];
     
@@ -103,8 +103,11 @@
     
    
     
-    [[IMAPlatform sharedInstance] configOnAppLaunchWithOptions:launchOptions];
+//    [[IMAPlatform sharedInstance] configOnAppLaunchWithOptions:launchOptions];
     
+//    if ([TLUser us÷er].userId) {
+        [[TLUser user] loadTengxunYun];
+//    }÷
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
@@ -193,6 +196,15 @@
     // 客服
     [ZDCChat initializeWithAccountKey:@"MvxwoT6827HylJtr6360QQQ5yve4Z2Ny"];
 
+}
+
+-(void)configAliyun
+{
+    
+    
+   
+
+    
 }
 
 #pragma mark - 用户登录

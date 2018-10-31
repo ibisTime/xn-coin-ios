@@ -101,80 +101,86 @@ static NSString * const XNBannerCellID = @"XNBannerCellID ";
     //对图片进行处理
     
     //1.对URL进行处理
-    if(imgUrls.count > 0){
-        
-        if (imgUrls.count > 1) {
-
-        _urls = [NSMutableArray arrayWithArray:imgUrls];
-        [_urls insertObject:[imgUrls lastObject] atIndex:0];
-        [_urls insertObject:[imgUrls firstObject] atIndex:_urls.count];
-            
-        } else {
-            
-            _urls = [NSMutableArray arrayWithArray:imgUrls];
-
-        
-        }
-        
-        
-        if (_isAuto) {
-            
-      
-            //移除指示
-            [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                
-                if ([obj isKindOfClass:[UIPageControl class]]) {
-                    [obj removeFromSuperview];
-                }
-                
-            }];
-            
-            //添加
-            CGFloat pageControlHeight = PAGE_CONTROL_HEIGHT;
-            UIPageControl *tmpPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - pageControlHeight, self.frame.size.width, pageControlHeight)];
-            [self addSubview:tmpPageControl];
-            tmpPageControl.hidesForSinglePage = YES;
-            tmpPageControl.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-            tmpPageControl.pageIndicatorTintColor = [UIColor colorWithHexString:@"#cecece"];
-            tmpPageControl.currentPageIndicatorTintColor = [UIColor colorWithHexString:@"#8a8a8a"];
-            
-            //
-            if (self.urls.count - 2 >= 2) {
-                
-                tmpPageControl.numberOfPages = self.urls.count - 2;
-
-            } else {
-                
-                tmpPageControl.numberOfPages = 1;
-                
-            }
-            
-            //添加指示
-            [self addSubview:tmpPageControl];
-            self.pageControl = tmpPageControl;
-            
-            
-        }
-        
-        _currentPage = 1;
-        self.pageControl.currentPage = 0;
-        
-        
-        //销毁原来的定时器
-        
-        if (!self.timer) {
-        
-            __weak typeof(self) weakself = self;
-            
-            NSTimer *tmpTimer = [NSTimer timerWithTimeInterval:SCROLL_TIME_INTERVAL target:weakself selector:@selector(pageScroll) userInfo:nil repeats:YES];
-            [[NSRunLoop currentRunLoop] addTimer:tmpTimer forMode:NSRunLoopCommonModes];
-            self.timer = tmpTimer;
-            
-        }
-        
-    
+//    if(imgUrls.count > 0){
+//
+//        if (imgUrls.count > 1) {
+//
+//        _urls = [NSMutableArray arrayWithArray:imgUrls];
+//        [_urls insertObject:[imgUrls lastObject] atIndex:0];
+//        [_urls insertObject:[imgUrls firstObject] atIndex:_urls.count];
+//
+//        } else {
+//
+//            _urls = [NSMutableArray arrayWithArray:imgUrls];
+//
+//
+//        }
+//
+//
+//        if (_isAuto) {
+//
+//
+//            //移除指示
+//            [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//
+//                if ([obj isKindOfClass:[UIPageControl class]]) {
+//                    [obj removeFromSuperview];
+//                }
+//
+//            }];
+//
+//            //添加
+//            CGFloat pageControlHeight = PAGE_CONTROL_HEIGHT;
+//            UIPageControl *tmpPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - pageControlHeight, self.frame.size.width, pageControlHeight)];
+//            [self addSubview:tmpPageControl];
+//            tmpPageControl.hidesForSinglePage = YES;
+//            tmpPageControl.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+//            tmpPageControl.pageIndicatorTintColor = [UIColor colorWithHexString:@"#cecece"];
+//            tmpPageControl.currentPageIndicatorTintColor = [UIColor colorWithHexString:@"#8a8a8a"];
+//
+//            //
+//            if (self.urls.count - 2 >= 2) {
+//
+//                tmpPageControl.numberOfPages = self.urls.count - 2;
+//
+//            } else {
+//
+//                tmpPageControl.numberOfPages = 1;
+//
+//            }
+//
+//            //添加指示
+//            [self addSubview:tmpPageControl];
+//            self.pageControl = tmpPageControl;
+//
+//
+//        }
+//
+//        _currentPage = 1;
+//        self.pageControl.currentPage = 0;
+//
+//
+//        //销毁原来的定时器
+//
+//        if (!self.timer) {
+//
+//            __weak typeof(self) weakself = self;
+//
+//            NSTimer *tmpTimer = [NSTimer timerWithTimeInterval:SCROLL_TIME_INTERVAL target:weakself selector:@selector(pageScroll) userInfo:nil repeats:YES];
+//            [[NSRunLoop currentRunLoop] addTimer:tmpTimer forMode:NSRunLoopCommonModes];
+//            self.timer = tmpTimer;
+//
+//        }
+//
+//
+//        [self.bannerCollectionView reloadData];
+//    }else{
+        NSString *image = @"交易bannner2";
+        NSArray *arr = [NSArray arrayWithObject:image];
+        _urls = [NSMutableArray arrayWithArray:arr];
         [self.bannerCollectionView reloadData];
-    }
+
+//    }
     
 }
 

@@ -18,6 +18,7 @@
 #import "ChatManager.h"
 #import "IMAHost+HostAPIs.h"
 #import "IMAHost.h"
+#import "TLUploadManager.h"
 //#import "TabbarViewController.h"
 
 #define USER_ID_KEY @"user_id_key"
@@ -210,6 +211,8 @@ NSString *const kGoogleAuthClose = @"0";
 //    self.unReadMsgCount = 0;
     self.realName = nil;
     self.idNo = nil;
+    self.zfbAccount = nil;
+    self.zfbQr = nil;
     
 //    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_ID_KEY];
     
@@ -251,7 +254,7 @@ NSString *const kGoogleAuthClose = @"0";
         
         [self setUserInfoWithDict:responseObject[@"data"]];
         [self saveUserInfo:responseObject[@"data"]];
-        
+        [self loadTengxunYun];
         if (isPostNotification) {
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoChange object:nil];
@@ -263,7 +266,25 @@ NSString *const kGoogleAuthClose = @"0";
     }];
     
 }
+- (void)loadTengxunYun
+{
+    
+    TLNetworking *http = [TLNetworking new];
+    //806052
+    http.code = @"805953";
+    
+    [http postWithSuccess:^(id responseObject) {
+        NSLog(@"%@",responseObject);
+        [TLUploadManager manager].key = responseObject[@"data"][@"AccessKeyId"];
+        [TLUploadManager manager].sec = responseObject[@"data"][@"AccessKeySecret"];
+        [TLUploadManager manager].token = responseObject[@"data"][@"SecurityToken"];
+        [[TLUploadManager manager] initAliYun];
 
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
 - (void)updateUserInfo {
     
     [self updateUserInfoWithNotification:YES];
@@ -282,7 +303,9 @@ NSString *const kGoogleAuthClose = @"0";
     self.photo = dict[@"photo"];
     self.email = dict[@"email"];
     self.secretUserId =  dict[@"secretUserId"];
-    
+    self.zfbAccount = dict[@"realName"];
+    self.zfbQr = dict[@"zfbQr"];
+
     //腾讯云-设置昵称和头像
 //  [IMAPlatform sharedInstance].host.icon = [self.photo convertImageUrl];
 

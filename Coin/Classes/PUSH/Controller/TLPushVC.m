@@ -580,7 +580,9 @@
     helper.start = 1;
     helper.limit = 20;
     helper.isUploadToken = NO;
-    
+    if ([CoinUtil shouldDisplayTokenCoinArray].count == 0) {
+        return;
+    }
     [self changePageHelperCoin:[CoinUtil shouldDisplayTokenCoinArray][self.curSelectIndex] pageHelper:helper];
     helper.parameters[@"tradeType"] = self.tradeType;
     helper.tableView = self.tableView;

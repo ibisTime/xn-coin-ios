@@ -29,15 +29,13 @@
 
     NSArray *titles = @[
                         [LangSwitcher switchLang:@"行情" key:nil],
-                        [LangSwitcher switchLang:@"交易" key:nil],
-                        [LangSwitcher switchLang:@"PUSH" key:nil],
-                        [LangSwitcher switchLang:@"钱包" key:nil],
+                        [LangSwitcher switchLang:@"交易" key:nil],                      [LangSwitcher switchLang:@"钱包" key:nil],
                         [LangSwitcher switchLang:@"我的" key:nil]
                         ];
-    NSArray *VCNames = @[@"QuotationVC",@"TLTransactionVC",@"TLPushVC",@"TLWalletVC",@"TLMineVC"];
+    NSArray *VCNames = @[@"QuotationVC",@"TLTransactionVC",@"TLWalletVC",@"TLMineVC"];
     
-    NSArray *imageNames = @[@"行情00",@"交易00",@"PUSH00",@"钱包00",@"我的00"];
-    NSArray *selectedImageNames = @[@"行情01",@"交易01",@"PUSH01",@"钱包01",@"我的01"];
+    NSArray *imageNames = @[@"行情00",@"交易00",@"钱包00",@"我的00"];
+    NSArray *selectedImageNames = @[@"行情01",@"交易01",@"钱包01",@"我的01"];
     
     
     for (int i = 0; i < imageNames.count; i++) {
@@ -53,7 +51,7 @@
                     selectedImage:selectedImageNames[i]];
     }
     
-    self.selectedIndex =[AppConfig config].isUploadCheck ? 1 : 2;
+    self.selectedIndex =[AppConfig config].isUploadCheck ? 1 : 1;
     
     //
     UIView *tabBarBgView = [[UIView alloc] initWithFrame:self.tabBar.bounds];

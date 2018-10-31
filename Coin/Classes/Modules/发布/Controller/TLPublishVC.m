@@ -29,7 +29,7 @@
 #import "UIBarButtonItem+convience.h"
 #import "ZMAuthVC.h"
 #import "TLNotficationService.h"
-
+#import <UIImageView+WebCache.h>
 @interface TLPublishVC ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UIScrollView *bgScrollView;
@@ -59,6 +59,9 @@
 //收款期限
 @property (nonatomic, strong) TLPublishInputView *payTimeLimitView;
 //留言
+//支付宝账号
+@property (nonatomic, strong) TLPublishInputView *payCount;
+
 @property (nonatomic, strong) TLTextView *leaveMsgTextView;
 @property (nonatomic, strong) TLHighLevelSettingsView *highLevelSettingsView;
 //
@@ -68,7 +71,7 @@
 //
 @property (nonatomic, strong) QuotationModel *quotationModel;
 @property (nonatomic, strong) AdvertiseModel *advertise;
-
+@property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, copy) NSString *payType;
 @property (nonatomic, copy) NSString *currentCurrency;
 
@@ -885,15 +888,40 @@
     [self.payTimeLimitView adddMaskBtn];
     self.payTimeLimitView.hintMsg = publishService.payLimit;
     
-    
-    //留言
-    self.leaveMsgTextView = [[TLTextView alloc] initWithFrame:CGRectMake(0, self.payTimeLimitView.yy, width, 120)];
-    [self.contentView addSubview:self.leaveMsgTextView];
-    self.leaveMsgTextView.font = Font(14.0);
-    self.leaveMsgTextView.placeholderLbl.font  = self.leaveMsgTextView.font;
-    self.leaveMsgTextView.placholder = [LangSwitcher switchLang:@"请写下您的广告留言吧" key:nil];
-    self.leaveMsgTextView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
-    
+    //支付宝账号
+    if ([TLUser user].zfbAccount) {
+        self.payCount = [[TLPublishInputView alloc] initWithFrame:CGRectMake(0, self.payTimeLimitView.yy, width, height)];
+        [self.contentView addSubview:self.payCount];
+        self.payCount.leftLbl.text = [LangSwitcher switchLang:@"支付宝账号" key:nil];
+        self.payCount.textField.placeholder = [LangSwitcher switchLang:@"" key:nil];
+        self.payCount.markLbl.text = [LangSwitcher switchLang:@"" key:nil];
+        self.payCount.textField.enabled = NO;
+        //    [self.payCount adddMaskBtn];
+        self.payCount.textField.text = [TLUser user].zfbAccount;
+        UIImageView *imageView =[[UIImageView alloc] initWithFrame:CGRectMake(20, self.payCount.yy, 150, 150)];
+        self.imageView = imageView;
+        imageView.contentMode = UIViewContentModeScaleToFill;
+        [self.contentView addSubview:imageView];
+        
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[[TLUser user].zfbQr convertImageUrl]]];
+        //留言
+        self.leaveMsgTextView = [[TLTextView alloc] initWithFrame:CGRectMake(0, self.imageView.yy, width, 120)];
+        [self.contentView addSubview:self.leaveMsgTextView];
+        self.leaveMsgTextView.font = Font(14.0);
+        self.leaveMsgTextView.placeholderLbl.font  = self.leaveMsgTextView.font;
+        self.leaveMsgTextView.placholder = [LangSwitcher switchLang:@"请写下您的广告留言吧" key:nil];
+        self.leaveMsgTextView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
+        
+    }else{
+        self.leaveMsgTextView = [[TLTextView alloc] initWithFrame:CGRectMake(0, self.payTimeLimitView.yy, width, 120)];
+        [self.contentView addSubview:self.leaveMsgTextView];
+        self.leaveMsgTextView.font = Font(14.0);
+        self.leaveMsgTextView.placeholderLbl.font  = self.leaveMsgTextView.font;
+        self.leaveMsgTextView.placholder = [LangSwitcher switchLang:@"请写下您的广告留言吧" key:nil];
+        self.leaveMsgTextView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
+        
+    }
+  
     //高级设置
     self.highLevelSettingsView = [[TLHighLevelSettingsView alloc] initWithFrame:CGRectMake(0, self.leaveMsgTextView.yy, width, [TLHighLevelSettingsView normalHeight])];
     [self.contentView addSubview:self.highLevelSettingsView];

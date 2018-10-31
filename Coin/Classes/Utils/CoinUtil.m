@@ -145,7 +145,7 @@ NSString *const kCNY = @"CNY";
     
     NSMutableArray *coins = [[NSMutableArray alloc] init];
     for (CoinModel *coinModel in coinList) {
-        if ([@"1" isEqualToString:coinModel.type]) {
+        if ([@"0" isEqualToString:coinModel.type]) {
             [coins addObject:coinModel.symbol];
         }
     }
@@ -178,7 +178,7 @@ NSString *const kCNY = @"CNY";
     
     NSMutableArray *coins = [[NSMutableArray alloc] init];
     for (CoinModel *coinModel in coinList) {
-        if ([@"1" isEqualToString:coinModel.type]) {
+        if ([@"0" isEqualToString:coinModel.type]) {
             [coins addObject:coinModel];
         }
     }

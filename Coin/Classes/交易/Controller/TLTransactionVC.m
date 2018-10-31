@@ -117,21 +117,23 @@
     [super viewDidLoad];
     
     self.isFirst = YES;
-    
-    [self navBarUI];
-    
-    [self setUpUI];
-    //获取广告
-    [self requestAdvetiseList];
-    //添加通知
-    [self addNotification];
-    
-    // 定时器去刷新广告列表
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:5*60
-                                                  target:self
-                                                selector:@selector(refreshAds)
-                                                userInfo:nil
-                                                 repeats:YES];
+    [CoinUtil refreshOpenCoinList:^{
+        [self navBarUI];
+        [self setUpUI];
+
+        //获取广告
+        [self requestAdvetiseList];
+        //添加通知
+        [self addNotification];
+        
+        // 定时器去刷新广告列表
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:5*60
+                                                      target:self
+                                                    selector:@selector(refreshAds)
+                                                    userInfo:nil
+                                                     repeats:YES];
+    }];
+   
     
 }
 
@@ -508,8 +510,8 @@
     helper.start = 1;
     helper.limit = 20;
     helper.isUploadToken = NO;
-    
-    [self changePageHelperCoin:[CoinService shareService].currentCoin.symbol pageHelper:helper];
+         [self changePageHelperCoin:[CoinService shareService].currentCoin.symbol pageHelper:helper];
+   
     helper.parameters[@"tradeType"] = self.tradeType;
     helper.tableView = self.tableView;
     self.helper = helper;
@@ -519,7 +521,7 @@
     [self.tableView addRefreshAction:^{
         
         [CoinUtil refreshOpenCoinList:^{
-            
+
             //动态显示币种选择，默认保留上次选择的币种
             NSInteger oldIndex = weakSelf.selectScrollView.headView.selectIndex;
             if (oldIndex >= [CoinUtil shouldDisplayOriginalCoinArray].count) {
