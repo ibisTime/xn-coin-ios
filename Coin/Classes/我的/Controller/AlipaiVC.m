@@ -19,6 +19,7 @@
 #import "TLImagePicker.h"
 #import "TLUploadManager.h"
 #import <UIImageView+WebCache.h>
+#import "XWScanImage.h"
 @interface AlipaiVC ()
 @property (nonatomic, strong) TLTextField *contentTf;
 //@property (nonatomic, strong) TLTextField *codeTf;
@@ -94,7 +95,7 @@
     
     self.title = [LangSwitcher switchLang:@"支付宝收款" key:nil];
     [self setUpUI];
-    
+    self.view.backgroundColor = kWhiteColor;
     //
 //    self.contentTf.text = [TLUser user].email;
     
@@ -117,7 +118,7 @@
     [self.view addSubview:self.contentTf];
     
     
-    UIImageView *QRimageView = [[UIImageView alloc] initWithFrame:CGRectMake(160, self.contentTf.yy+20, 150, 150)];
+    UIImageView *QRimageView = [[UIImageView alloc] initWithFrame:CGRectMake(100, self.contentTf.yy+20, 150, 150)];
     self.QRimageView = QRimageView;
     QRimageView.contentMode = UIViewContentModeScaleToFill;
     QRimageView.userInteractionEnabled = YES;
@@ -126,24 +127,31 @@
     QRimageView.layer.borderWidth = 0.5;
     QRimageView.layer.borderColor = kLineColor.CGColor;
     
+    UITapGestureRecognizer *tapGestureRecognizer1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(takePhoto)];
+    [QRimageView addGestureRecognizer:tapGestureRecognizer1];
+    //让UIImageView和它的父类开启用户交互属性
+    [QRimageView setUserInteractionEnabled:YES];
     if ([TLUser user].zfbQr) {
         [QRimageView sd_setImageWithURL:[NSURL URLWithString:[[TLUser user].zfbQr convertImageUrl]]];
         
         
     }
-    UILabel *introLab  = [UILabel labelWithTitle:@"上传收款码" frame:CGRectMake(10, self.contentTf.yy+30, 100, 30)];
+    UILabel *introLab  = [UILabel labelWithTitle: [LangSwitcher switchLang:@"设置收款码" key:nil] frame:CGRectMake(0, self.contentTf.yy+10, 100, 30)];
+    if ([TLUser user].zfbQr) {
+        introLab.text = [LangSwitcher switchLang:@"设置收款码" key:nil];
+    }
     [self.view addSubview:introLab];
     introLab.textColor = kTextColor;
-    introLab.font = [UIFont systemFontOfSize:14];
+    introLab.font = [UIFont systemFontOfSize:15];
     
     
-    UIButton *addButton = [UIButton buttonWithTitle:@"" titleColor:kTextColor backgroundColor:kClearColor titleFont:13];
-    self.addButton = addButton;
-    addButton.frame = CGRectMake(30, self.contentTf.yy+80, 40, 40);
-    [addButton setBackgroundImage:kImage(@"添加") forState:UIControlStateNormal];
-    [self.view addSubview:addButton];
-    
-    [addButton addTarget:self action:@selector(takePhoto) forControlEvents:UIControlEventTouchUpInside];
+//    UIButton *addButton = [UIButton buttonWithTitle:@"" titleColor:kTextColor backgroundColor:kClearColor titleFont:13];
+//    self.addButton = addButton;
+//    addButton.frame = CGRectMake(30, self.contentTf.yy+80, 40, 40);
+//    [addButton setBackgroundImage:kImage(@"添加") forState:UIControlStateNormal];
+//    [self.view addSubview:addButton];
+//
+//    [addButton addTarget:self action:@selector(takePhoto) forControlEvents:UIControlEventTouchUpInside];
     
     
     
@@ -163,6 +171,13 @@
     
     
 }
+// - 浏览大图点击事件
+-(void)scanBigImageClick1:(UITapGestureRecognizer *)tap{
+    NSLog(@"点击图片");
+    UIImageView *clickedImageView = (UIImageView *)tap.view;
+    [XWScanImage scanBigImageWithImageView:clickedImageView];
+}
+
 - (void)changeHeadIconWithKey:(NSString *)key imgData:(NSData *)imgData {
     
     self.key = key;
@@ -226,7 +241,8 @@
         [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入支付宝账号" key:nil]];
         return;
     }
-    if (![self.key valid]) {
+    
+    if (![self.key valid] && ![TLUser user].zfbQr) {
         
         [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请上传收款二维码" key:nil]];
         return;
@@ -238,7 +254,13 @@
         http.code = @"805097";
         http.parameters[@"userId"] = [TLUser user].userId;
         http.parameters[@"zfbAccount"] = self.contentTf.text;
-        http.parameters[@"zfbQr"] =self.key;
+        if (![self.key valid]) {
+            http.parameters[@"zfbQr"] =[TLUser user].zfbQr;
+
+        }else{
+            http.parameters[@"zfbQr"] =self.key;
+
+        }
         [http postWithSuccess:^(id responseObject) {
         
         [TLAlert alertWithSucces:[LangSwitcher switchLang:@"上传二维码成功" key:nil]];

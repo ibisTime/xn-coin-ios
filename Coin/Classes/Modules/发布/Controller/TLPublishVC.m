@@ -30,6 +30,8 @@
 #import "ZMAuthVC.h"
 #import "TLNotficationService.h"
 #import <UIImageView+WebCache.h>
+#import "XWScanImage.h"
+#import "AlipaiVC.h"
 @interface TLPublishVC ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UIScrollView *bgScrollView;
@@ -126,8 +128,15 @@
         
         [self setPlaceholderViewTitle:@"加载失败" operationTitle:@"重新加载"];
         [self removePlaceholderView];
-        [self realNameAuthAfter];
-        [self.navigationController popViewControllerAnimated:YES];
+        if ([TLUser user].zfbAccount) {
+            [self realNameAuthAfter];
+            [self.navigationController popViewControllerAnimated:YES];
+
+        }else{
+            
+            [self aliPayUpLoad];
+        }
+        
 
     }];
     
@@ -546,7 +555,8 @@
     [self.tradeCoinView.maskBtn addTarget:self action:@selector(chooseCoin) forControlEvents:UIControlEventTouchUpInside];
     
     //
-    [self.payTypeView.maskBtn addTarget:self action:@selector(choosePayType) forControlEvents:UIControlEventTouchUpInside];
+//    [self.payTypeView.maskBtn addTarget:self action:@selector(choosePayType) forControlEvents:UIControlEventTouchUpInside];
+    self.payTypeView.maskView.hidden = YES;
     [self.payTimeLimitView.maskBtn addTarget:self action:@selector(choosePayLimit) forControlEvents:UIControlEventTouchUpInside];
     
     //
@@ -777,7 +787,7 @@
     
     //底部提交按钮
     //发布按钮
-    UIButton *publishBtn = [UIButton buttonWithTitle:@"直接发布" titleColor:kWhiteColor backgroundColor:kThemeColor titleFont:16.0 cornerRadius:5];
+    UIButton *publishBtn = [UIButton buttonWithTitle:[LangSwitcher switchLang:@"直接发布" key:nil]titleColor:kWhiteColor backgroundColor:kThemeColor titleFont:16.0 cornerRadius:5];
     [publishBtn addTarget:self action:@selector(publish) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:publishBtn];
     [publishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -804,7 +814,11 @@
     self.tradeCoinView.hintMsg = publishService.tradeCoin;
     self.tradeCoinView.textField.userInteractionEnabled = NO;
     [self.tradeCoinView adddMaskBtn];
-    
+    self.tradeCoinView.markImageView.image = [UIImage imageNamed:@"更多-灰色"];
+    [self.tradeCoinView.markImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.tradeCoinView.mas_centerY);
+        make.right.equalTo(self.tradeCoinView.introduceBtn.mas_left).offset(10);
+    }];
     //把市场价格显示出来
     self.marketPriceView = [[TLAdpaterView alloc] initWithFrame:CGRectMake(0, self.tradeCoinView.yy, width, 30)];
     [self.contentView addSubview:self.marketPriceView];
@@ -866,20 +880,9 @@
     self.balanceView.contentLbl.text = @"--";
     self.balanceView.height = [PublishService shareInstance].balanceHeight;
     
-    //收款方式
-    self.payTypeView = [[TLPublishInputView alloc] initWithFrame:CGRectMake(0, self.balanceView.yy, width, height)];
-    [self.contentView addSubview:self.payTypeView];
-    self.payTypeView.textField.enabled = NO;
-    self.payTypeView.leftLbl.userInteractionEnabled = YES;
-    self.payTypeView.leftLbl.text = [LangSwitcher switchLang:@"收款方式" key:nil];
-    self.payTypeView.textField.placeholder = [LangSwitcher switchLang:@"请选择收款方式" key:nil];
-    self.payTypeView.markImageView.image = [UIImage imageNamed:@"更多-灰色"];
-    [self.payTypeView adddMaskBtn];
-    self.payTypeView.hintMsg = publishService.payType;
-    
-    
+  
     //收款期限
-    self.payTimeLimitView = [[TLPublishInputView alloc] initWithFrame:CGRectMake(0, self.payTypeView.yy, width, height)];
+    self.payTimeLimitView = [[TLPublishInputView alloc] initWithFrame:CGRectMake(0, self.balanceView.yy, width, height)];
     [self.contentView addSubview:self.payTimeLimitView];
     self.payTimeLimitView.leftLbl.text = [LangSwitcher switchLang:@"收款期限" key:nil];
     self.payTimeLimitView.textField.placeholder = [LangSwitcher switchLang:@"请选择收款期限" key:nil];
@@ -887,23 +890,52 @@
     self.payTimeLimitView.textField.enabled = NO;
     [self.payTimeLimitView adddMaskBtn];
     self.payTimeLimitView.hintMsg = publishService.payLimit;
+    //收款方式
+    self.payTypeView = [[TLPublishInputView alloc] initWithFrame:CGRectMake(0, self.payTimeLimitView.yy, width, height)];
+    [self.contentView addSubview:self.payTypeView];
+    self.payTypeView.textField.enabled = NO;
+    self.payTypeView.leftLbl.userInteractionEnabled = YES;
+    self.payTypeView.leftLbl.text = [LangSwitcher switchLang:@"收款方式" key:nil];
+    //    self.payTypeView.textField.placeholder = [LangSwitcher switchLang:@"请选择收款方式" key:nil];
+    [self.payTypeView adddMaskBtn];
+    self.payTypeView.hintMsg = publishService.payType;
     
+    self.payTypeView.textField.text = [PayTypeModel payTypeNames][0];
+    self.payType = [NSString stringWithFormat:@"%d",0];
     //支付宝账号
-    if ([TLUser user].zfbAccount) {
-        self.payCount = [[TLPublishInputView alloc] initWithFrame:CGRectMake(0, self.payTimeLimitView.yy, width, height)];
+        self.payCount = [[TLPublishInputView alloc] initWithFrame:CGRectMake(0, self.payTypeView.yy, width, height)];
         [self.contentView addSubview:self.payCount];
-        self.payCount.leftLbl.text = [LangSwitcher switchLang:@"支付宝账号" key:nil];
-        self.payCount.textField.placeholder = [LangSwitcher switchLang:@"" key:nil];
+        self.payCount.leftLbl.text = [LangSwitcher switchLang:@"收款账号" key:nil];
         self.payCount.markLbl.text = [LangSwitcher switchLang:@"" key:nil];
         self.payCount.textField.enabled = NO;
         //    [self.payCount adddMaskBtn];
-        self.payCount.textField.text = [TLUser user].zfbAccount;
-        UIImageView *imageView =[[UIImageView alloc] initWithFrame:CGRectMake(20, self.payCount.yy, 150, 150)];
+        if ([TLUser user].zfbAccount) {
+            self.payCount.textField.text = [TLUser user].zfbAccount;
+        }else{
+            self.payCount.textField.placeholder = [LangSwitcher switchLang:@"请绑定支付宝账号" key:nil];
+            self.payCount.markImageView.image = [UIImage imageNamed:@"更多-灰色"];
+            [self.payCount adddMaskBtn];
+            [self.payCount.maskBtn addTarget:self action:@selector(aliPayUpLoad) forControlEvents:UIControlEventTouchUpInside];
+            
+        }
+        UIImageView *imageView =[[UIImageView alloc] initWithFrame:CGRectMake(15, self.payCount.yy, 150, 150)];
         self.imageView = imageView;
         imageView.contentMode = UIViewContentModeScaleToFill;
         [self.contentView addSubview:imageView];
+        self.contentView.backgroundColor = kWhiteColor;
+        if ([TLUser user].zfbQr) {
+         [imageView sd_setImageWithURL:[NSURL URLWithString:[[TLUser user].zfbQr convertImageUrl]]];
+            UITapGestureRecognizer *tapGestureRecognizer1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scanBigImageClick1:)];
+            [imageView addGestureRecognizer:tapGestureRecognizer1];
+            //让UIImageView和它的父类开启用户交互属性
+            [imageView setUserInteractionEnabled:YES];
+        }else{
+            
+        }
+    
         
-        [imageView sd_setImageWithURL:[NSURL URLWithString:[[TLUser user].zfbQr convertImageUrl]]];
+        
+    
         //留言
         self.leaveMsgTextView = [[TLTextView alloc] initWithFrame:CGRectMake(0, self.imageView.yy, width, 120)];
         [self.contentView addSubview:self.leaveMsgTextView];
@@ -912,16 +944,7 @@
         self.leaveMsgTextView.placholder = [LangSwitcher switchLang:@"请写下您的广告留言吧" key:nil];
         self.leaveMsgTextView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
         
-    }else{
-        self.leaveMsgTextView = [[TLTextView alloc] initWithFrame:CGRectMake(0, self.payTimeLimitView.yy, width, 120)];
-        [self.contentView addSubview:self.leaveMsgTextView];
-        self.leaveMsgTextView.font = Font(14.0);
-        self.leaveMsgTextView.placeholderLbl.font  = self.leaveMsgTextView.font;
-        self.leaveMsgTextView.placholder = [LangSwitcher switchLang:@"请写下您的广告留言吧" key:nil];
-        self.leaveMsgTextView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
-        
-    }
-  
+    
     //高级设置
     self.highLevelSettingsView = [[TLHighLevelSettingsView alloc] initWithFrame:CGRectMake(0, self.leaveMsgTextView.yy, width, [TLHighLevelSettingsView normalHeight])];
     [self.contentView addSubview:self.highLevelSettingsView];
@@ -944,4 +967,21 @@
     
 }
 
+- (void)aliPayUpLoad
+{
+    AlipaiVC *editVC = [[AlipaiVC alloc] init];
+    [editVC setDone:^(NSString *content){
+        [self.navigationController popViewControllerAnimated:YES];
+
+    }];
+    //
+    [self.navigationController pushViewController:editVC animated:YES];
+    
+}
+// - 浏览大图点击事件
+-(void)scanBigImageClick1:(UITapGestureRecognizer *)tap{
+    NSLog(@"点击图片");
+    UIImageView *clickedImageView = (UIImageView *)tap.view;
+    [XWScanImage scanBigImageWithImageView:clickedImageView];
+}
 @end

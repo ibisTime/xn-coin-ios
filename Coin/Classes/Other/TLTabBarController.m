@@ -156,7 +156,7 @@
     } else {
         
         //判断点击的Controller是不是需要登录，如果是，那就登录
-        if((idx == 3 || idx == 4) && ![TLUser user].isLogin) {
+        if((idx == 2 || idx == 3) && ![TLUser user].isLogin) {
             
             TLUserLoginVC *loginVC = [TLUserLoginVC new];
             

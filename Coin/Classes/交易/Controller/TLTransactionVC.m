@@ -510,7 +510,7 @@
     helper.start = 1;
     helper.limit = 20;
     helper.isUploadToken = NO;
-         [self changePageHelperCoin:[CoinService shareService].currentCoin.symbol pageHelper:helper];
+    [self changePageHelperCoin:[CoinService shareService].currentCoin.symbol pageHelper:helper];
    
     helper.parameters[@"tradeType"] = self.tradeType;
     helper.tableView = self.tableView;

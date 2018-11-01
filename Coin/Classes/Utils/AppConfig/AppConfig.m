@@ -58,6 +58,7 @@ void TLLog(NSString *format, ...) {
             self.qiniuDomain = @"http://kkkotc.oss-cn-shenzhen.aliyuncs.com/";
 //            self.addr = @"178.128.208.125:5501";
             self.addr = @"https://loveotc.com/api";
+//            self.addr = @"http://47.98.46.31:5501";
 
         }break;
             

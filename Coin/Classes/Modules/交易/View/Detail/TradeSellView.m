@@ -10,7 +10,7 @@
 
 #import "TLUIHeader.h"
 #import "AppColorMacro.h"
-
+#import <UIImageView+WebCache.h>
 #import <UIScrollView+TLAdd.h>
 #import <UIButton+WebCache.h>
 #import "NSString+Extension.h"
@@ -22,7 +22,7 @@
 #import "TLUser.h"
 #import "AdsDetailUserView.h"
 #import "PayTypeModel.h"
-
+#import "CaptchaView.h"
 #define myDotNumbers     @"0123456789.\n"
 #define myNumbers          @"0123456789\n"
 
@@ -57,6 +57,15 @@
 //底部
 @property (nonatomic, strong) AdsDetailBottomOpView *bottomView;
 
+@property (nonatomic, strong) TLTextField *contentTf;
+//@property (nonatomic, strong) TLTextField *codeTf;
+@property (nonatomic, strong) CaptchaView *captchaView;
+
+@property (nonatomic, strong) UIImageView *QRimageView;
+
+@property (nonatomic, strong) UIButton *addButton;
+
+@property (nonatomic, copy) NSString *key;
 @end
 
 @implementation TradeSellView
@@ -145,7 +154,7 @@
         make.left.equalTo(@0);
         make.width.equalTo(@(kScreenWidth));
         make.top.equalTo(self.leaveMsgView.mas_bottom).offset(10);
-        make.height.equalTo(@120);
+        make.height.equalTo(@250);
     }];
     
     //想要出售多少
@@ -181,7 +190,7 @@
     [iconIV mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.centerX.equalTo(@0);
-        make.bottom.equalTo(@(-25));
+        make.top.equalTo(self.leftAmountLbl.mas_bottom).offset(15);
         make.width.height.equalTo(@(24));
         
     }];
@@ -218,13 +227,13 @@
         
         make.left.equalTo(self.cnyTF.mas_left).offset(15);
         make.right.equalTo(self.cnyTF.mas_right);
-        make.bottom.equalTo(@(-15));
+        make.top.equalTo(self.cnyTF.mas_bottom).offset(5);
         make.height.equalTo(@0.5);
         
     }];
     
     //ETH
-    self.ethTF = [[TLTextField alloc] initWithFrame:CGRectMake(kScreenWidth/2.0 + 5, 65, tfW, 44) leftTitle:@"ETH" titleWidth:50 placeholder:@"请输入数值"];
+    self.ethTF = [[TLTextField alloc] initWithFrame:CGRectMake(kScreenWidth/2.0 + 5, 65, tfW, 44) leftTitle:@"ETH" titleWidth:80 placeholder:@"请输入数值"];
     
     self.ethTF.delegate = self;
     self.ethTF.keyboardType = UIKeyboardTypeDecimalPad;
@@ -250,10 +259,39 @@
         
         make.left.equalTo(self.ethTF.mas_left).offset(15);
         make.right.equalTo(self.ethTF.mas_right);
-        make.bottom.equalTo(@(-15));
+        make.top.equalTo(self.cnyTF.mas_bottom).offset(5);
         make.height.equalTo(@0.5);
         
     }];
+    
+    
+    self.contentTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, self.ethTF.yy, kScreenWidth, 35)
+                                              leftTitle:[LangSwitcher switchLang:@"支付宝账号" key:nil]
+                                             titleWidth:120
+                                            placeholder:[LangSwitcher switchLang:@"请输入支付宝账号"    key:nil]];
+    
+    if ([TLUser user].zfbAccount) {
+        self.contentTf.text = [TLUser user].zfbAccount;
+    }
+    self.contentTf.keyboardType = UIKeyboardTypeEmailAddress;
+    [self.sellView addSubview:self.contentTf];
+    
+    
+    UIImageView *QRimageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.contentTf.yy+5, 100, 100)];
+    self.QRimageView = QRimageView;
+    QRimageView.contentMode = UIViewContentModeScaleToFill;
+    QRimageView.userInteractionEnabled = YES;
+    [self.sellView addSubview:QRimageView];
+    QRimageView.layer.cornerRadius = 5;
+    QRimageView.layer.borderWidth = 0.5;
+    QRimageView.layer.borderColor = kLineColor.CGColor;
+    
+   
+    if ([TLUser user].zfbQr) {
+        [QRimageView sd_setImageWithURL:[NSURL URLWithString:[[TLUser user].zfbQr convertImageUrl]]];
+        
+        
+    }
 }
 
 - (void)initTradePrompt {

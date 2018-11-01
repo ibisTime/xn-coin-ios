@@ -193,8 +193,11 @@
     }];
     
     SettingModel *aliPay = [SettingModel new];
-    aliPay.text = [LangSwitcher switchLang:@"收款码" key:nil];
+    aliPay.text = [LangSwitcher switchLang:@"收款账号" key:nil];
     self.emailSettingModel = aliPay;
+    if ([TLUser user].zfbAccount) {
+        aliPay.subText = [TLUser user].zfbAccount;
+    }
     [aliPay setAction:^{
         
         AlipaiVC *editVC = [[AlipaiVC alloc] init];

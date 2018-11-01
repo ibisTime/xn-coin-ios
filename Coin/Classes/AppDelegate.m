@@ -169,18 +169,18 @@
     [[TLUser user] loginOut];
     
     //退出登录
-    [[IMAPlatform sharedInstance] logout:^{
-        
-        
-    } fail:^(int code, NSString *msg) {
-        
-        
-    }];
+//    [[IMAPlatform sharedInstance] logout:^{
+//
+//
+//    } fail:^(int code, NSString *msg) {
+//
+//
+//    }];
 
     //
     UITabBarController *tabbarContrl = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     tabbarContrl.selectedIndex = 0;
-    [tabbarContrl.tabBar hideBadgeOnItemIndex:4];
+    [tabbarContrl.tabBar hideBadgeOnItemIndex:3];
     //应用外数量为0
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     

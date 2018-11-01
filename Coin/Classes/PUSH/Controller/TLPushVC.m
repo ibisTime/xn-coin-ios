@@ -124,11 +124,11 @@
     //        [self navBarUI];
     
     [self setUpUI];
-    
-    [CoinUtil refreshOpenCoinList:^{
-        //获取广告
+    if ([CoinUtil shouldDisplayTokenCoinArray].count > 0) {
         [self requestAdvetiseList];
-    }];
+
+    }
+   
     
     
     //添加通知
@@ -592,9 +592,7 @@
     
     [self.tableView addRefreshAction:^{
         
-       
-        [CoinUtil refreshOpenCoinList:^{
-            
+        
             weakSelf.coins = [CoinUtil shouldDisplayTokenCoinModelArray];
             [weakSelf.filterPicker setTagNames:[CoinUtil shouldDisplayTokenCoinArray]];
             if (weakSelf.curSelectIndex >= self.coins.count) {
@@ -624,7 +622,6 @@
                 
             }];
             
-        }];
         
        
     }];

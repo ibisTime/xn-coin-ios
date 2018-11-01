@@ -508,6 +508,7 @@
 		B863B9552188A5E400F54F87 /* IMSDKBugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B863B93C2188A5E300F54F87 /* IMSDKBugly.framework */; };
 		B863B9562188A5E400F54F87 /* IMMessageExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B863B93D2188A5E300F54F87 /* IMMessageExt.framework */; };
 		B863B9592188AB8800F54F87 /* AlipaiVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B863B9582188AB8700F54F87 /* AlipaiVC.m */; };
+		B88F431B218AA36000CB6E42 /* XWScanImage.m in Sources */ = {isa = PBXBuildFile; fileRef = B88F4319218AA36000CB6E42 /* XWScanImage.m */; };
 		B8FFE11921897CB50064E454 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 211C050D1FC6716500E51FCF /* libresolv.tbd */; };
 		B8FFE11A21897CCA0064E454 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5F19211FED0CC100100420 /* SystemConfiguration.framework */; };
 		B8FFE11C2189F9CA0064E454 /* imagekkk.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FFE11B2189F9C90064E454 /* imagekkk.png */; };
@@ -1557,6 +1558,8 @@
 		B863B93D2188A5E300F54F87 /* IMMessageExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IMMessageExt.framework; sourceTree = "<group>"; };
 		B863B9572188AB8600F54F87 /* AlipaiVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlipaiVC.h; sourceTree = "<group>"; };
 		B863B9582188AB8700F54F87 /* AlipaiVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlipaiVC.m; sourceTree = "<group>"; };
+		B88F4319218AA36000CB6E42 /* XWScanImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWScanImage.m; sourceTree = "<group>"; };
+		B88F431A218AA36000CB6E42 /* XWScanImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWScanImage.h; sourceTree = "<group>"; };
 		B8FFE11B2189F9C90064E454 /* imagekkk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imagekkk.png; path = "Coin/Assets.xcassets/交易/imagekkk.imageset/imagekkk.png"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -2801,6 +2804,7 @@
 		211DE65C1FB58B4B002FCF3D /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				B88F4318218AA36000CB6E42 /* UIimageView */,
 				2120A8F91FD51DDA00B03DB0 /* UITabbar */,
 				211EAD8D1FD0FC210037FBA8 /* UIViewController */,
 				211DE65D1FB58B4B002FCF3D /* UILabel */,
@@ -4202,6 +4206,15 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		B88F4318218AA36000CB6E42 /* UIimageView */ = {
+			isa = PBXGroup;
+			children = (
+				B88F4319218AA36000CB6E42 /* XWScanImage.m */,
+				B88F431A218AA36000CB6E42 /* XWScanImage.h */,
+			);
+			path = UIimageView;
+			sourceTree = "<group>";
+		};
 		C678617F8B7C3B3F2F7DE44F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -4275,7 +4288,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Push = {
 								enabled = 1;
@@ -4639,6 +4652,7 @@
 				211A34D71FB3F51400FEB71F /* MineHeaderView.m in Sources */,
 				2EE360E61FFA09A800A5C3EB /* ChatTimeTipTableViewCell.m in Sources */,
 				211D3C0C1FCFCE2000B55F9F /* GuideModel.m in Sources */,
+				B88F431B218AA36000CB6E42 /* XWScanImage.m in Sources */,
 				2EE360E81FFA09A800A5C3EB /* ChatInputPanel.m in Sources */,
 				211A533C1FC0261700CC6294 /* PublishBuyVC.m in Sources */,
 				211DE6C11FB58B4C002FCF3D /* AppConfig.m in Sources */,
@@ -5023,6 +5037,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos11.4;
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = "";
 			};
@@ -5066,6 +5081,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos11.4;
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = "";
 			};
