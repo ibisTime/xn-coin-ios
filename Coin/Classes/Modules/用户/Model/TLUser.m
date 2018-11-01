@@ -15,9 +15,6 @@
 #import "TLUIHeader.h"
 #import "AppConfig.h"
 
-#import "ChatManager.h"
-#import "IMAHost+HostAPIs.h"
-#import "IMAHost.h"
 #import "TLUploadManager.h"
 //#import "TabbarViewController.h"
 
@@ -303,7 +300,6 @@ NSString *const kGoogleAuthClose = @"0";
     self.photo = dict[@"photo"];
     self.email = dict[@"email"];
     self.secretUserId =  dict[@"secretUserId"];
-    self.zfbAccount = dict[@"realName"];
     self.zfbQr = dict[@"zfbQr"];
 
     //腾讯云-设置昵称和头像

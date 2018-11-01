@@ -6,11 +6,11 @@
 //  Copyright © 2017年  tianlei. All rights reserved.
 //
 
-#import "RichChatViewController.h"
+#import "TLBaseVC.h"
 
 #import "OrderModel.h"
 
-@interface WaitingOrderVC : RichChatViewController
+@interface WaitingOrderVC : TLBaseVC
 
 @property (nonatomic, copy) NSString *orderCode;
 

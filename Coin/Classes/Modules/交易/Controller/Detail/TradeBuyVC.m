@@ -12,8 +12,6 @@
 #import "CurrencyModel.h"
 #import "OrderPriceModel.h"
 #import "QuotationModel.h"
-#import "IMAUser.h"
-#import "ChatManager.h"
 #import "NSNumber+Extension.h"
 #import "NSString+Check.h"
 #import "UILabel+Extension.h"

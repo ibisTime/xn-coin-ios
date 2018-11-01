@@ -48,7 +48,6 @@
     
     //账号
      TLTextField *phoneTf = [[TLTextField alloc] initWithFrame:CGRectMake(margin, 10, w, h) leftTitle:[LangSwitcher switchLang:@"账号" key:nil] titleWidth:100 placeholder:[LangSwitcher switchLang:@"请输入手机号或邮箱" key:nil]];
-    phoneTf.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:phoneTf];
     self.phoneTf = phoneTf;
     

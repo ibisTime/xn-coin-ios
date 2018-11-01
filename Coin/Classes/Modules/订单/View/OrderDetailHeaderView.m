@@ -16,7 +16,7 @@
 #import "NSNumber+Extension.h"
 #import "NSString+Date.h"
 #import "CoinUtil.h"
-
+#import <UIImageView+WebCache.h>
 #define BTN_HEIGHT 44
 
 @interface OrderDetailHeaderView ()
@@ -32,8 +32,11 @@
 @property (nonatomic, strong) UILabel *numLbl;
 //交易价格
 @property (nonatomic, strong) UILabel *priceLbl;
+//支付宝
+@property (nonatomic, strong) UILabel *zhifubao;
 
-
+//支付宝图片
+@property (nonatomic, strong) UIImageView *zhifubaoQr;
 
 //买家
 @property (nonatomic, strong) UILabel *buyersLbl;
@@ -94,6 +97,11 @@
     self.sellerLbl.text = [NSString stringWithFormat:@"%@: %@",[LangSwitcher switchLang:@"卖家" key:nil], order.sellUserInfo.nickname];
     //留言
     self.leaveMsgLbl.text = [NSString stringWithFormat:@"%@: %@",[LangSwitcher switchLang:@"广告留言" key:nil], order.leaveMessage];
+     self.zhifubao.text = [NSString stringWithFormat:@"%@",[LangSwitcher switchLang:@"支付宝收款码" key:nil]];
+    if (order.payAccountQr) {
+        
+        [self.zhifubaoQr sd_setImageWithURL:[NSURL URLWithString:[order.payAccountQr convertImageUrl]]];
+    }
     
     //确定按钮上面的那就话
     if (
@@ -244,7 +252,7 @@
         
         make.left.top.equalTo(@0);
         make.width.equalTo(@(kScreenWidth));
-        make.height.equalTo(@155);
+        make.height.equalTo(@(155+100+20+20));
         
     }];
 
@@ -289,17 +297,7 @@
         
     }];
     
-    //分割线
-    UIView *line = [[UIView alloc] init];
-    line.backgroundColor = kLineColor;
-    [self.topView addSubview:line];
-    [line mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.right.equalTo(@0);
-        make.top.equalTo(self.orderCodeLbl.mas_bottom).offset(0);
-        make.height.equalTo(@0.5);
-        
-    }];
+    
     
     NSArray *textArr = @[
                          
@@ -361,6 +359,40 @@
         
     }];
     
+    //支付宝
+    self.zhifubao = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor font:15.0];
+    self.zhifubao.text = @"支付宝收款码";
+    self.zhifubao.textAlignment = NSTextAlignmentLeft;
+    [self.topView addSubview:self.zhifubao];
+    [self.zhifubao mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+        make.left.equalTo(self.topView.mas_left).offset(15);
+        make.top.equalTo(self.priceLbl.mas_bottom).offset(15);
+        
+    }];
+    //图片
+    UIImageView *zhifubaoQr = [[UIImageView alloc] init];
+    zhifubaoQr.contentMode = UIViewContentModeScaleAspectFit;
+    self.zhifubaoQr = zhifubaoQr;
+    [self.topView addSubview:zhifubaoQr];
+    [zhifubaoQr mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.topView.mas_left).offset(15);
+        make.top.equalTo(self.zhifubao.mas_bottom).offset(10);
+        make.height.equalTo(@90);
+        make.width.equalTo(@90);
+        
+    }];
+    //分割线
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = kLineColor;
+    [self.topView addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.equalTo(@0);
+        make.top.equalTo(self.zhifubaoQr.mas_bottom).offset(0);
+        make.height.equalTo(@0.5);
+        
+    }];
 }
 
 - (void)initCenterView {

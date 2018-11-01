@@ -7,7 +7,7 @@
 //
 
 #import "TLBaseVC.h"
-#import "ChatManager.h"
+//#import "ChatManager.h"
 @class UserInfo;
 
 @interface AdsTradeDetailVC : TLBaseVC

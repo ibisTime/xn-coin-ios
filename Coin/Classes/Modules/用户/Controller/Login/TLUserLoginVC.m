@@ -23,8 +23,6 @@
 #import "AccountTf.h"
 
 //腾讯云
-#import "ChatManager.h"
-#import "IMModel.h"
 
 #import <ImSDK/TIMManager.h>
 
@@ -97,7 +95,6 @@
     phoneTf.placeHolder = [LangSwitcher switchLang:@"请输入手机号或邮箱" key:nil];
     [bgView addSubview:phoneTf];
     self.phoneTf = phoneTf;
-    phoneTf.keyboardType = UIKeyboardTypeNumberPad;
     
     
     //密码

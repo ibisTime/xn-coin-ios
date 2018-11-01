@@ -14,7 +14,6 @@
 #import "CurrencyModel.h"
 #import "OrderPriceModel.h"
 #import "QuotationModel.h"
-#import "IMAUser.h"
 #import "CoinUtil.h"
 #import "NSNumber+Extension.h"
 #import "NSString+Check.h"

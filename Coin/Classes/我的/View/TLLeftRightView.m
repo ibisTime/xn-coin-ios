@@ -8,7 +8,6 @@
 
 #import "TLLeftRightView.h"
 #import "UILabel+Extension.h"
-#import "UILabel+InitMethod.h"
 #import "UILable+convience.h"
 #import "UIColor+theme.h"
 #import "TLUIHeader.h"
@@ -28,7 +27,7 @@
         
         self.backgroundColor = [UIColor clearColor];
         
-        UILabel *leftLbl = [UILabel labelWithBackgroundColor:kClearColor
+        UILabel *leftLbl = [UILabel labelWithBackgroundColor:[UIColor clearColor]
                                                    textColor:[UIColor themeColor]
                                                         font:12.0];
         leftLbl.textAlignment = NSTextAlignmentCenter;
@@ -43,7 +42,7 @@
         }];
         
         //
-        self.rightLbl = [UILabel labelWithBackgroundColor:kClearColor
+        self.rightLbl = [UILabel labelWithBackgroundColor:[UIColor clearColor]
                                              textColor:[UIColor textColor]
                                                   font:16.0];
         self.rightLbl.textAlignment = NSTextAlignmentCenter;

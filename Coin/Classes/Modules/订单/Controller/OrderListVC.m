@@ -172,22 +172,22 @@
     NSString *friendPhoto = order.isBuy ? order.sellUserInfo.photo: order.buyUserInfo.photo;
     NSString *friendNickName = order.isBuy ? order.sellUserInfo.nickname: order.buyUserInfo.nickname;
     
-    IMAGroup *currentIMGroup = nil;
-    //2. 获取对应的group
-    currentIMGroup = [[IMAGroup alloc] initWith:order.code];
-
-    
-    //我
-    ChatUserProfile *userInfo = [ChatUserProfile sharedUser];
-    userInfo.minePhoto = [[TLUser user].photo convertImageUrl];
-    userInfo.mineNickName = [TLUser user].nickname;
-    userInfo.friendPhoto = [friendPhoto convertImageUrl];
-    userInfo.friendNickName = friendNickName;
-    userInfo.friendUserId = [order.sellUser equalsString:[TLUser user].userId] ? order.buyUser : order.sellUser;
-  
+//    IMAGroup *currentIMGroup = nil;
+//    //2. 获取对应的group
+//    currentIMGroup = [[IMAGroup alloc] initWith:order.code];
+//
+//
+//    //我
+//    ChatUserProfile *userInfo = [ChatUserProfile sharedUser];
+//    userInfo.minePhoto = [[TLUser user].photo convertImageUrl];
+//    userInfo.mineNickName = [TLUser user].nickname;
+//    userInfo.friendPhoto = [friendPhoto convertImageUrl];
+//    userInfo.friendNickName = friendNickName;
+//    userInfo.friendUserId = [order.sellUser equalsString:[TLUser user].userId] ? order.buyUser : order.sellUser;
+//
     if ([order.status isEqualToString:kTradeOrderStatusToSubmit]) {
         // 传入user
-        WaitingOrderVC *chatVC = [[WaitingOrderVC alloc] initWith:currentIMGroup];
+        WaitingOrderVC *chatVC = [WaitingOrderVC new];
 //        chatVC.userInfo = userInfo;
         chatVC.orderCode = order.code;
         [self.navigationController pushViewController:chatVC animated:YES];
@@ -195,7 +195,7 @@
     }
     
     //
-    OrderDetailVC *chatVC = [[OrderDetailVC alloc] initWith:currentIMGroup];
+    OrderDetailVC *chatVC = [OrderDetailVC new];
 //    chatVC.userInfo = userInfo;
     chatVC.orderCode = order.code;
     [self.navigationController pushViewController:chatVC animated:YES];
@@ -296,12 +296,12 @@
         OrderModel *order = self.orderGroups[index];
         NSString *userId = order.isBuy ? order.sellUserInfo.userId: order.buyUserInfo.userId;
         
-        //获取会话列表
-        TIMConversation *timConversation = [[TIMManager sharedInstance] getConversation:TIM_GROUP receiver:order.code];
-        
-        IMAConversation *imaConversation = [[IMAConversation alloc] initWith:timConversation];
-        
-        [[IMAPlatform sharedInstance].conversationMgr deleteConversation:imaConversation needUIRefresh:NO];
+//        //获取会话列表
+//        TIMConversation *timConversation = [[TIMManager sharedInstance] getConversation:TIM_GROUP receiver:order.code];
+//        
+//        IMAConversation *imaConversation = [[IMAConversation alloc] initWith:timConversation];
+//        
+//        [[IMAPlatform sharedInstance].conversationMgr deleteConversation:imaConversation needUIRefresh:NO];
         //删除数据源中的数据
         [self.orderGroups removeObjectAtIndex:index];
         

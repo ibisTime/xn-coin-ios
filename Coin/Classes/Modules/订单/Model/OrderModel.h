@@ -74,6 +74,8 @@
 @property (nonatomic, assign) BOOL enable;
 //提示
 @property (nonatomic, strong) NSString *promptStr;
+@property (nonatomic, copy) NSString *payAccountQr;
+
 
 + (NSArray *)endStatusList;
 + (NSArray *)ingStatusList;
