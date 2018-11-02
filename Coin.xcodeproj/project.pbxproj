@@ -5021,9 +5021,9 @@
 					"$(PROJECT_DIR)/Coin/Extension/ZDCChat",
 					"$(PROJECT_DIR)/Coin/Extension",
 				);
-				GCC_PREFIX_HEADER = "/Users/shaojianfei/xn-coin-ios/Coin/Classes/Other/CoinPrefixHeader.pch";
+				GCC_PREFIX_HEADER = "/Users/zqb/xn-coin-ios/Coin/Classes/Other/CoinPrefixHeader.pch";
 				INFOPLIST_FILE = Coin/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5052,7 +5052,7 @@
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CODE_SIGN_ENTITLEMENTS = Coin/Coin.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3ZCW993X44;
 				ENABLE_BITCODE = NO;
@@ -5065,9 +5065,9 @@
 					"$(PROJECT_DIR)/Coin/Extension/ZDCChat",
 					"$(PROJECT_DIR)/Coin/Extension",
 				);
-				GCC_PREFIX_HEADER = "/Users/shaojianfei/xn-coin-ios/Coin/Classes/Other/CoinPrefixHeader.pch";
+				GCC_PREFIX_HEADER = "/Users/zqb/xn-coin-ios/Coin/Classes/Other/CoinPrefixHeader.pch";
 				INFOPLIST_FILE = Coin/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
