@@ -905,20 +905,20 @@
     //支付宝账号
         self.payCount = [[TLPublishInputView alloc] initWithFrame:CGRectMake(0, self.payTypeView.yy, width, height)];
         [self.contentView addSubview:self.payCount];
-        self.payCount.leftLbl.text = [LangSwitcher switchLang:@"收款账号" key:nil];
-        self.payCount.markLbl.text = [LangSwitcher switchLang:@"" key:nil];
+
+        self.payCount.leftLbl.text = [LangSwitcher switchLang:@"收款码 " key:nil];
+    
         self.payCount.textField.enabled = NO;
         //    [self.payCount adddMaskBtn];
-        if ([TLUser user].zfbAccount) {
-            self.payCount.textField.text = [TLUser user].zfbAccount;
+        if ([TLUser user].zfbQr) {
         }else{
-            self.payCount.textField.placeholder = [LangSwitcher switchLang:@"请绑定支付宝账号" key:nil];
+            self.payCount.textField.placeholder = [LangSwitcher switchLang:@"请上传支付宝收款码" key:nil];
             self.payCount.markImageView.image = [UIImage imageNamed:@"更多-灰色"];
             [self.payCount adddMaskBtn];
             [self.payCount.maskBtn addTarget:self action:@selector(aliPayUpLoad) forControlEvents:UIControlEventTouchUpInside];
             
         }
-        UIImageView *imageView =[[UIImageView alloc] initWithFrame:CGRectMake(15, self.payCount.yy, 150, 150)];
+        UIImageView *imageView =[[UIImageView alloc] initWithFrame:CGRectMake(15, self.payCount.yy+5, 120, 130)];
         self.imageView = imageView;
         imageView.contentMode = UIViewContentModeScaleToFill;
         [self.contentView addSubview:imageView];
@@ -934,7 +934,10 @@
         }
     
         
-        
+    UIView *line = [UIView new];
+    line.backgroundColor = kLineColor;
+    line.frame = CGRectMake(0, imageView.yy+1, kScreenWidth, 0.5);
+    [self.contentView addSubview:line];
     
         //留言
         self.leaveMsgTextView = [[TLTextView alloc] initWithFrame:CGRectMake(0, self.imageView.yy, width, 120)];

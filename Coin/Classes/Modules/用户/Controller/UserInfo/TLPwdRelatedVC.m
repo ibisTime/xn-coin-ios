@@ -288,7 +288,13 @@
     
     TLNetworking *http = [TLNetworking new];
     http.showView = self.view;
-    
+    if ([self.pwdTf.text containsString:@"@"]) {
+        http.parameters[@"type"] = @"2";
+
+    }else{
+        http.parameters[@"type"] = @"1";
+
+    }
     if (self.type == TLPwdTypeTradeReset) { //资金密码po
         
         http.code = USER_FIND_TRADE_PWD;

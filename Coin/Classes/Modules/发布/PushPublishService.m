@@ -149,17 +149,23 @@ NSString *const kPushPublishTradeTypeBuy = @"0";
     NSArray <OverTimeModel *>*data = [OverTimeModel tl_objectArrayWithDictionaryArray:arr];
     
     self.limitTimes = [[NSMutableArray alloc] init];
-    
-    
-    [[data reversedArray]  enumerateObjectsUsingBlock:^(OverTimeModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [[self reversedArrayWithArray:data]  enumerateObjectsUsingBlock:^(OverTimeModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         [self.limitTimes addObject:obj.dvalue];
         
         
     }];
+   
         
 }
-
+- (NSArray *)reversedArrayWithArray :(NSArray*)arr {
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:[arr count]];
+    NSEnumerator *enumerator = [arr reverseObjectEnumerator];
+    for (id element in enumerator) {
+        [array addObject:element];
+    }
+    return [NSArray arrayWithArray:array];
+}
 
 + (BOOL)isDevPublish {
     return YES;

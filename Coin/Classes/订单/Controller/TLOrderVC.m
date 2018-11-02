@@ -11,7 +11,6 @@
 #import "TopSegmentUtil.h"
 #import "CoinChangeView.h"
 #import "FilterView.h"
-#import "ChatManager.h"
 #import "OrderDetailVC.h"
 #import "WaitingOrderVC.h"
 #import "OrderModel.h"
@@ -27,7 +26,7 @@
 #define SHOW_BADGE_LEFT_INDEX 0
 #define SHOW_BADGE_RIGHT_INDEX 1
 
-@interface TLOrderVC ()<SegmentDelegate, RefreshDelegate, MsgDelegate,OrderListVCLoadDelegate>
+@interface TLOrderVC ()<SegmentDelegate, RefreshDelegate,OrderListVCLoadDelegate>
 
 //货币切换
 @property (nonatomic, strong) CoinChangeView *changeView;
@@ -84,7 +83,7 @@
     [self setUpChildVC];
     
     //
-    [IMAPlatform sharedInstance].conversationMgr.msgDelegate = self;
+//    [IMAPlatform sharedInstance].conversationMgr.msgDelegate = self;
     
 }
 
@@ -102,51 +101,51 @@
 
 
 // 该方法只处理顶部红点逻辑
-- (void)handleGroupMsg:(NSString *)groupId msg:(TIMMessage *) msg {
-    
-    /*
-     此处应该为，拿订单号去查询订单详情。先区分，左边 还是 右边
-     1.
-     如果订单列表，中有该数据，把这个数据移动到，第一位。否则把该数据插入到订单列表中。
-     并移动到第一位
-     */
-    //1. 获取订单详情
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        TLNetworking *http = [TLNetworking new];
-        http.code = @"625251";
-        http.parameters[@"code"] = groupId;
-        [http postWithSuccess:^(id responseObject) {
-            
-            OrderModel *orderModel =  [OrderModel tl_objectWithDictionary:responseObject[@"data"]];
-            
-            __block BOOL hasLook = NO;
-            [OrderModel.ingStatusList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                
-                if ([orderModel.status equalsString:obj]) {
-                    //正在进行的订单，左边
-                    [self changeLeftTopMsgRedHintToHave];
-                    hasLook = YES;
-                }
-                
-            }];
-            
-            if (!hasLook) {
-                [self changeRightTopMsgRedHintToHave];
-            }
-            
-        } failure:^(NSError *error) {
-            
-        }];
-        
-    });
-  
-}
+//- (void)handleGroupMsg:(NSString *)groupId msg:(TIMMessage *) msg {
+//
+//    /*
+//     此处应该为，拿订单号去查询订单详情。先区分，左边 还是 右边
+//     1.
+//     如果订单列表，中有该数据，把这个数据移动到，第一位。否则把该数据插入到订单列表中。
+//     并移动到第一位
+//     */
+//    //1. 获取订单详情
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//
+//        TLNetworking *http = [TLNetworking new];
+//        http.code = @"625251";
+//        http.parameters[@"code"] = groupId;
+//        [http postWithSuccess:^(id responseObject) {
+//
+//            OrderModel *orderModel =  [OrderModel tl_objectWithDictionary:responseObject[@"data"]];
+//
+//            __block BOOL hasLook = NO;
+//            [OrderModel.ingStatusList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//
+//                if ([orderModel.status isEqualToString:obj]) {
+//                    //正在进行的订单，左边
+//                    [self changeLeftTopMsgRedHintToHave];
+//                    hasLook = YES;
+//                }
+//
+//            }];
+//
+//            if (!hasLook) {
+//                [self changeRightTopMsgRedHintToHave];
+//            }
+//
+//        } failure:^(NSError *error) {
+//
+//        }];
+//
+//    });
+//
+//}
 
 //
 - (void)userLogin {
     //
-    [IMAPlatform sharedInstance].conversationMgr.msgDelegate = self;
+//    [IMAPlatform sharedInstance].conversationMgr.msgDelegate = self;
     self.ingOrderListVC.pageDataHelper.parameters[@"belongUser"] = [TLUser user].userId;
     self.endOrderListVC.pageDataHelper.parameters[@"belongUser"] = [TLUser user].userId;
     [self addUnReadMsgKVO];
@@ -231,27 +230,27 @@
     
     CoinWeakSelf;
     // 这里不负责tabbar 上的改变, tabbar 在apple delegate 中处理
-    self.KVOController = [FBKVOController controllerWithObserver:self];
-    [self.KVOController observe:[IMAPlatform sharedInstance].conversationMgr
-                        keyPath:@"unReadMessageCount"
-                        options:NSKeyValueObservingOptionNew
-                          block:^(id observer, id object, NSDictionary *change) {
-                              
-                              if ([IMAPlatform sharedInstance].conversationMgr.unReadMessageCount <= 0) {
-                                  
-                                  //让顶部的取置0
-                                  [weakSelf changeTopMsgRedHintToZero];
-                                  [weakSelf orderReloadData];
-                                  
-                              } else {
-                                  
-                                  [weakSelf orderRefresh];
-                                  [weakSelf asyncHandleTopUnreadMsgHint];
-                                  
-                              }
-                              
-                          }];
-    
+//    self.KVOController = [FBKVOController controllerWithObserver:self];
+//    [self.KVOController observe:[IMAPlatform sharedInstance].conversationMgr
+//                        keyPath:@"unReadMessageCount"
+//                        options:NSKeyValueObservingOptionNew
+//                          block:^(id observer, id object, NSDictionary *change) {
+//                              
+//                              if ([IMAPlatform sharedInstance].conversationMgr.unReadMessageCount <= 0) {
+//                                  
+//                                  //让顶部的取置0
+//                                  [weakSelf changeTopMsgRedHintToZero];
+//                                  [weakSelf orderReloadData];
+//                                  
+//                              } else {
+//                                  
+//                                  [weakSelf orderRefresh];
+//                                  [weakSelf asyncHandleTopUnreadMsgHint];
+//                                  
+//                              }
+//                              
+//                          }];
+//    
 }
 
 //- (void)asyncHandleTopUnreadMsgHint {

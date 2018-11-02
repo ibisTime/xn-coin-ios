@@ -64,7 +64,6 @@
 }
 
 - (void)receiverSysMsg {
-    [super receiverSysMsg];
     
     // 系统消息来时订单状态已经改变，刷新订单
     [self lookOrderDetail];
@@ -176,7 +175,7 @@
             
         case OrderEventsTypeDidComplete: {
             
-            self.tabBarController.selectedIndex = 3;
+            self.tabBarController.selectedIndex = 2;
             [self.navigationController popToRootViewControllerAnimated:NO];
             
         } break;
@@ -369,15 +368,16 @@
         self.order = [OrderModel tl_objectWithDictionary:responseObject[@"data"]];
 
         //添加头部
-        [self lazyLoadChatData];
+//        [self lazyLoadChatData];
         [self initHeaderView];
         
         
         //头部设置数据
         self.headView.order = self.order;
-        
-        self.headView.height = self.headView.centerView.yy;
-        self.tableView.tableHeaderView = self.headView;
+        [self.view addSubview:self.headView];
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+//        self.headView.height = self.headView.centerView.yy;
+//        self.tableView.tableHeaderView = self.headView;
         if ([self.order.status isEqualToString:@"1"]) {
             
             //仲裁

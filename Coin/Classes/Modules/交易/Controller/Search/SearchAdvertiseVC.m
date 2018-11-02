@@ -113,8 +113,7 @@
     //
     self.payTypeView.pickerTextField.tagNames  = @[
                                                    [LangSwitcher switchLang:@"支付宝" key:nil],
-                                                   [LangSwitcher switchLang:@"微信" key:nil],
-                                                   [LangSwitcher switchLang:@"银行转账" key:nil]
+                                                 
                                                    ];
     
     self.coinTypeView.pickerTextField.text = [[CoinService shareService].currentCoin symbol];
@@ -149,9 +148,12 @@
     //付款方式
     self.payTypeView = [[TLSearchParamChooseView alloc] initWithFrame:CGRectMake(0, priceZoneView.yy, SCREEN_WIDTH, paramChooseHeight)
                                                             paramName:@"付款方式"
-                                                          placeholder:@"请选择付款方式"];
+                                                          placeholder:@""];
     [self.view addSubview:self.payTypeView];
-    
+    self.payTypeView.pickerTextField.text = @"支付宝";
+    self.payTypeView.userInteractionEnabled = NO;
+    self.isChoosePayType = YES;
+    self.payTypeIndex = 0;
     //搜广告
         UIButton *searchBtn = [UIButton buttonWithTitle:[LangSwitcher switchLang:@"搜广告" key:nil]
                                              titleColor:kWhiteColor

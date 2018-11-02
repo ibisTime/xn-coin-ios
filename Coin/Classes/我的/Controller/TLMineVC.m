@@ -29,8 +29,8 @@
 #import "TLImagePicker.h"
 #import "TLUploadManager.h"
 #import "AppConfig.h"
-#import <ZendeskSDK/ZendeskSDK.h>
-#import <ZDCChat/ZDCChat.h>
+//#import <ZendeskSDK/ZendeskSDK.h>
+//#import <ZDCChat/ZDCChat.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import <CDCommon/UIScrollView+TLAdd.h>
 #import "CoinService.h"
@@ -39,7 +39,7 @@
 
 @interface TLMineVC ()<MineHeaderSeletedDelegate, UINavigationControllerDelegate>
 
-@property (nonatomic, strong) FBKVOController *chatKVOCtrl;
+//@property (nonatomic, strong) FBKVOController *chatKVOCtrl;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 //头部
@@ -124,16 +124,16 @@
 #pragma mark - UINavigationControllerDelegate
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     // 判断要显示的控制器是否是自己
-    if ([viewController isKindOfClass:[ZDCChatViewController class]]) {
-        
-        [[IQKeyboardManager sharedManager] setEnable:NO];
-        ZDCChatViewController *chatVC = (ZDCChatViewController *)viewController;
-        ZDCChatUI *chatUI = chatVC.chatUI;
-        ZDCChatView *chatView = chatUI.chatView;
-        [chatView.table adjustsContentInsets];
-        [[ZDCChat instance].overlay setEnabled:NO];
-        
-    }
+//    if ([viewController isKindOfClass:[ZDCChatViewController class]]) {
+//
+//        [[IQKeyboardManager sharedManager] setEnable:NO];
+//        ZDCChatViewController *chatVC = (ZDCChatViewController *)viewController;
+//        ZDCChatUI *chatUI = chatVC.chatUI;
+//        ZDCChatView *chatView = chatUI.chatView;
+//        [chatView.table adjustsContentInsets];
+//        [[ZDCChat instance].overlay setEnabled:NO];
+//
+//    }
 
 }
 
@@ -298,19 +298,19 @@
 //        htmlVC.type = HTMLTypeLinkService;
 //        [weakSelf.navigationController pushViewController:htmlVC animated:YES];
         
-        [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
-        [ZDCChat updateVisitor:^(ZDCVisitorInfo *visitor) {
-
-            visitor.name = [TLUser user].nickname;
-            visitor.phone = [TLUser user].mobile;
-            visitor.email = [TLUser user].email;
-            
-        }];
-        //
-//        [ZDCChat startChat:^(ZDCConfig *config) {
+//        [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+//        [ZDCChat updateVisitor:^(ZDCVisitorInfo *visitor) {
+//
+//            visitor.name = [TLUser user].nickname;
+//            visitor.phone = [TLUser user].mobile;
+//            visitor.email = [TLUser user].email;
 //
 //        }];
-        [ZDCChat startChatIn:self.navigationController withConfig:nil];
+//        //
+////        [ZDCChat startChat:^(ZDCConfig *config) {
+////
+////        }];
+//        [ZDCChat startChatIn:self.navigationController withConfig:nil];
 
     };
     
@@ -328,7 +328,7 @@
 //   [ZDKRequests pushRequestListWithNavigationController:self.navigationController];
         
         //跳转
-         ZDKHelpCenterOverviewContentModel *contentModel = [ZDKHelpCenterOverviewContentModel defaultContent];
+//         ZDKHelpCenterOverviewContentModel *contentModel = [ZDKHelpCenterOverviewContentModel defaultContent];
 //        contentModel.groupType = ZDKHelpCenterOverviewGroupTypeDefault;
         
         // 设置界面的代理
@@ -338,8 +338,8 @@
 //        contentModel.groupType = ZDKHelpCenterOverviewGroupTypeSection;
 //        contentModel.groupIds = @[@"sections2"];
         
-        [ZDKHelpCenter pushHelpCenterOverview:self.navigationController
-                             withContentModel:contentModel];
+//        [ZDKHelpCenter pushHelpCenterOverview:self.navigationController
+//                             withContentModel:contentModel];
         
     };
     
@@ -367,7 +367,7 @@
         
         self.group.sections = @[
                                 @[advertisement, order, address, trust],
-                                @[securityCenter, personalSetting,helpModel, linkService, abountUs]
+                                @[securityCenter, personalSetting, abountUs]
                                 ];
 
     } else {
@@ -375,7 +375,7 @@
         
         self.group.sections = @[
                                 @[advertisement, order, address, trust, inviteFriend],
-                                @[securityCenter, personalSetting,helpModel, linkService, abountUs]
+                                @[securityCenter, personalSetting, abountUs]
                                 ];
         
     }
@@ -606,15 +606,15 @@
     
     CoinWeakSelf;
     // 这里不负责tabbar 上的改变, tabbar 在apple delegate 中处理
-    self.KVOController = [FBKVOController controllerWithObserver:self];
-    [self.KVOController observe:[IMAPlatform sharedInstance].conversationMgr
-                        keyPath:@"unReadMessageCount"
-                        options:NSKeyValueObservingOptionNew
-                          block:^(id observer, id object, NSDictionary *change) {
-                              
-                              [weakSelf asyncHandleTopUnreadMsgHint];
-                              
-                          }];
+//    self.KVOController = [FBKVOController controllerWithObserver:self];
+//    [self.KVOController observe:[IMAPlatform sharedInstance].conversationMgr
+//                        keyPath:@"unReadMessageCount"
+//                        options:NSKeyValueObservingOptionNew
+//                          block:^(id observer, id object, NSDictionary *change) {
+//                              
+//                              [weakSelf asyncHandleTopUnreadMsgHint];
+//                              
+//                          }];
     
 }
 
@@ -622,22 +622,22 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         
-        NSInteger count =  [IMAPlatform sharedInstance].conversationMgr.unReadMessageCount;
+//        NSInteger count =  [IMAPlatform sharedInstance].conversationMgr.unReadMessageCount;
         
         //
         dispatch_async(dispatch_get_main_queue() , ^{
             
              MineCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+//
+//            if (count > 0) {
             
-            if (count > 0) {
-                
-                [cell showBadge];
-                
-            } else {
-                
+//                [cell showBadge];
+            
+//            } else {
+            
                 [cell hideBadge];
                 
-            }
+//            }
             
         });
         

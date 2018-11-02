@@ -193,22 +193,20 @@
     }];
     
     SettingModel *aliPay = [SettingModel new];
-    aliPay.text = [LangSwitcher switchLang:@"收款账号" key:nil];
-    self.emailSettingModel = aliPay;
-    if ([TLUser user].zfbAccount) {
-        aliPay.subText = [TLUser user].zfbAccount;
-    }
+    aliPay.text = [LangSwitcher switchLang:@"收款码" key:nil];
+//    self.emailSettingModel = aliPay;
+   
     [aliPay setAction:^{
         
         AlipaiVC *editVC = [[AlipaiVC alloc] init];
         [editVC setDone:^(NSString *content){
             
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:1];
-            SettingCell *cell = [weakSelf.tableView cellForRowAtIndexPath:indexPath];
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:1];
+//            SettingCell *cell = [weakSelf.tableView cellForRowAtIndexPath:indexPath];
+//
+//            cell.rightLabel.text = @"支付宝收款码";
             
-            cell.rightLabel.text = @"支付宝收款码";
-            
-            [weakSelf.tableView reloadData];
+//            [weakSelf.tableView reloadData];
             
         }];
         //

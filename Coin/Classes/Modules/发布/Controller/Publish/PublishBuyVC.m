@@ -244,8 +244,8 @@
     [http postWithSuccess:^(id responseObject) {
         
         NSArray <OverTimeModel *>*data = [OverTimeModel tl_objectArrayWithDictionaryArray:responseObject[@"data"]];
-        
-        [[data reversedArray] enumerateObjectsUsingBlock:^(OverTimeModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        self.publishView.timeArr = data.mutableCopy;
+        [[self reversedArrayWithArray:data] enumerateObjectsUsingBlock:^(OverTimeModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
             [self.timeArr addObject:obj.dvalue];
 
@@ -259,6 +259,15 @@
     
     
 }
+- (NSArray *)reversedArrayWithArray :(NSArray*)arr {
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:[arr count]];
+    NSEnumerator *enumerator = [arr reverseObjectEnumerator];
+    for (id element in enumerator) {
+        [array addObject:element];
+    }
+    return [NSArray arrayWithArray:array];
+}
+
 
 - (void)publishAdvertisementWithDraft:(PublishDraftModel *)draft {
     

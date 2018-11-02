@@ -13,14 +13,10 @@
 #import "TLNetworking.h"
 #import "UITabBar+Badge.h"
 #import "AppConfig.h"
-#import "IMALoginParam.h"
 #import "WXApi.h"
 #import "TLWXManager.h"
 #import "TLAlipayManager.h"
-#import "ChatManager.h"
-#import "ChatViewController.h"
 #import <IQKeyboardManager.h>
-#import "RichChatViewController.h"
 #import "OrderDetailVC.h"
 #import "WaitingOrderVC.h"
 #import "ZMChineseConvert.h"
@@ -40,7 +36,6 @@
 
 @interface AppDelegate ()
 
-@property (nonatomic, strong) FBKVOController *chatKVOCtrl;
 @property (nonatomic, strong) RespHandler *respHandler;
 
 @end
@@ -74,7 +69,7 @@
 //    [[ChatManager sharedManager] initChat];
     
     // 配置zendesk
-    [self configZendesk];
+//    [self configZendesk];
     
     //初始化为繁体
     [LangSwitcher startWithTraditional];
@@ -125,7 +120,7 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 
-    [[IMAPlatform sharedInstance] configOnAppRegistAPNSWithDeviceToken:deviceToken];
+//    [[IMAPlatform sharedInstance] configOnAppRegistAPNSWithDeviceToken:deviceToken];
 
 }
 
@@ -136,28 +131,28 @@
     
     //这里监听主要是为了，tabbar上的消息提示, 和icon上的图标
     // 此处有坑， [IMAPlatform sharedInstance].conversationMgr 切换账户是会销毁
-    self.chatKVOCtrl = [FBKVOController controllerWithObserver:self];
-    [self.chatKVOCtrl observe:[IMAPlatform sharedInstance].conversationMgr
-                        keyPath:@"unReadMessageCount"
-                        options:NSKeyValueObservingOptionNew
-                          block:^(id observer, id object, NSDictionary *change) {
-                             
-                              NSInteger count =  [IMAPlatform sharedInstance].conversationMgr.unReadMessageCount;
-                              
-                              int location = 4;
-                              if (count > 0) {
-                                  
-                                  [[self rootTabBarController].tabBar showBadgeOnItemIndex:location];
-                                  
-                              } else {
-                                  
-                                  [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-                                  [[self rootTabBarController].tabBar hideBadgeOnItemIndex:location];
-
-                              }
-                             
-                          }];
-    
+//    self.chatKVOCtrl = [FBKVOController controllerWithObserver:self];
+//    [self.chatKVOCtrl observe:[IMAPlatform sharedInstance].conversationMgr
+//                        keyPath:@"unReadMessageCount"
+//                        options:NSKeyValueObservingOptionNew
+//                          block:^(id observer, id object, NSDictionary *change) {
+//
+//                              NSInteger count =  [IMAPlatform sharedInstance].conversationMgr.unReadMessageCount;
+//
+//                              int location = 4;
+//                              if (count > 0) {
+//
+//                                  [[self rootTabBarController].tabBar showBadgeOnItemIndex:location];
+//
+//                              } else {
+//
+//                                  [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+//                                  [[self rootTabBarController].tabBar hideBadgeOnItemIndex:location];
+//
+//                              }
+//
+//                          }];
+//
 }
 
 
@@ -188,13 +183,13 @@
 
 - (void)configZendesk {
     
-    // supprot
-    [[ZDKConfig instance] initializeWithAppId:@"f9ab448e1dfdb93e3b4ff1f2c2d4fb3a72140cbfd6ee10e0"
-                 zendeskUrl:@"https://beicoin.zendesk.com"
-                   clientId:@"mobile_sdk_client_b388fa777945f99314b7"];
-    
-    // 客服
-    [ZDCChat initializeWithAccountKey:@"MvxwoT6827HylJtr6360QQQ5yve4Z2Ny"];
+//    // supprot
+//    [[ZDKConfig instance] initializeWithAppId:@"f9ab448e1dfdb93e3b4ff1f2c2d4fb3a72140cbfd6ee10e0"
+//                 zendeskUrl:@"https://beicoin.zendesk.com"
+//                   clientId:@"mobile_sdk_client_b388fa777945f99314b7"];
+//
+//    // 客服
+//    [ZDCChat initializeWithAccountKey:@"MvxwoT6827HylJtr6360QQQ5yve4Z2Ny"];
 
 }
 
@@ -219,7 +214,7 @@
     
     // 重新登录的时候要重新，配置一下
     [self kvoUnReadMsgToChangeTabbar];
-    [[ChatManager sharedManager] loginIM];
+//    [[ChatManager sharedManager] loginIM];
     
 }
 
@@ -250,7 +245,7 @@
     
     [[IQKeyboardManager sharedManager].disabledToolbarClasses addObject:[WaitingOrderVC class]];
 
-    [[IQKeyboardManager sharedManager].disabledToolbarClasses addObject:[RichChatViewController class]];
+//    [[IQKeyboardManager sharedManager].disabledToolbarClasses addObject:[RichChatViewController class]];
 
 }
 
@@ -365,7 +360,7 @@
     if([TLUser user].isLogin) {
 
       [[TLUser user] changLoginTime];
-      [[IMAPlatform sharedInstance] configOnAppDidBecomeActive];
+//      [[IMAPlatform sharedInstance] configOnAppDidBecomeActive];
 
     };
     
@@ -385,7 +380,7 @@
     
     if([[TLUser user] checkLogin]) {
         
-        [[IMAPlatform sharedInstance] configOnAppEnterBackground];
+//        [[IMAPlatform sharedInstance] configOnAppEnterBackground];
         
     }
     
@@ -396,7 +391,7 @@
     
     if([[TLUser user] checkLogin]) {
 
-        [[IMAPlatform sharedInstance] configOnAppEnterForeground];
+//        [[IMAPlatform sharedInstance] configOnAppEnterForeground];
         
     }
     

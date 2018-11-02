@@ -30,11 +30,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIImageView *bgIV = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    UIView *bgIV = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:bgIV];
-    bgIV.contentMode = UIViewContentModeScaleAspectFill;
     
-    bgIV.image = [UIImage imageWithColor:kWhiteColor];
+    bgIV.backgroundColor = kWhiteColor;
     [self setPlaceholderViewTitle:@"加载失败" operationTitle:@"重新加载"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];

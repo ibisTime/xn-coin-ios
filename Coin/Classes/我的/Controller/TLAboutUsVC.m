@@ -39,12 +39,12 @@
 - (void)data {
     
     
-    self.iconImageView.image = [UIImage imageNamed:@"icon"];
-    self.nameLbl.text = [LangSwitcher switchLang:@"倍可盈" key:nil];
+    self.iconImageView.image = [UIImage imageNamed:@"imagekkk"];
+    self.nameLbl.text = [LangSwitcher switchLang:@"KKK" key:nil];
     self.versionLbl.text = [NSString stringWithFormat:@"v%@",[NSString appVersionString]];
     //
     NSString *at = @"@";
-    self.banQuanLbl.text = [NSString stringWithFormat:@"www.bcoin.im\n%@%@BCOIN版权所有",at,[self currentYear]];
+    self.banQuanLbl.text = [NSString stringWithFormat:@"kkkotc.com\n%@%@KKKOTC版权所有",at,[self currentYear]];
     
     
     
@@ -107,7 +107,9 @@
     [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self.bgView.mas_top).offset(40);
-        make.width.height.mas_equalTo(75);
+        make.width.mas_equalTo(75);
+        make.height.mas_equalTo(95);
+
         make.centerX.equalTo(self.bgView.mas_centerX);
         
     }];

@@ -57,10 +57,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (!self.orderCode) {
-        [TLAlert alertWithInfo:@"请传入 orderCode"];
-        return;
-    }
+//    if (!self.orderCode) {
+//        [TLAlert alertWithInfo:@"请传入 orderCode"];
+//        return;
+//    }
     
     // 在该控制器中，只处理待交易的订单
     [self initSubviews];
@@ -73,7 +73,7 @@
     [http postWithSuccess:^(id responseObject) {
         
         //
-        [self lazyLoadChatData];
+//        [self lazyLoadChatData];
         self.order = [OrderModel tl_objectWithDictionary:responseObject[@"data"]];
         [self queryAdvertiseDetail];
 
@@ -95,7 +95,7 @@
 //    self.title = self.order.isBuy ? [LangSwitcher switchLang:@"购买订单" key:nil] :
 //                                    [LangSwitcher switchLang:@"出售订单" key:nil];
     
-    if ([order.sellUser equalsString:[TLUser user].userId]) {
+    if ([order.sellUser isEqualToString:[TLUser user].userId]) {
         // 出售订单
         self.title = _order.buyUserInfo.nickname;
         
@@ -156,7 +156,7 @@
         NSString *btnTitle = nil;
         UIColor *bgColor = nil;
         
-        if ([[TLUser user].userId equalsString: self.advertise.userId]) {
+        if ([[TLUser user].userId isEqualToString: self.advertise.userId]) {
             //我发布的广告，代下单
             self.orderBtn.hidden = YES;
             return ;
@@ -239,7 +239,6 @@
     }];
     
     self.orderBtn = orderBtn;
-    _tableView.tableHeaderView = self.topView;
     
 }
 

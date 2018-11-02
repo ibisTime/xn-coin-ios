@@ -7,7 +7,7 @@
 //
 
 #import "AdsTradeDetailVC.h"
-#import "RichChatViewController.h"
+//#import "RichChatViewController.h"
 #import "WaitingOrderVC.h"
 #import "OrderModel.h"
 
@@ -50,19 +50,19 @@
     //
     // 下面控制器，实际上只用到了，id 和 type ,
     // 由于 是创建的 IMAGroup 所以，type____自然为___group
-    IMAGroup *group = [[IMAGroup alloc] initWith:groupId];
+//    IMAGroup *group = [[IMAGroup alloc] initWith:groupId];
+//
+//    // 单例
+//    ChatUserProfile *userInfo = [ChatUserProfile sharedUser];
+//    userInfo.minePhoto = [TLUser user].photo;
+//    userInfo.mineNickName = [TLUser user].nickname;
+//    //
+//    userInfo.friendPhoto = [toUser.photo convertImageUrl];
+//    userInfo.friendNickName = toUser.nickname;
+//    userInfo.friendUserId = toUser.userId;
     
-    // 单例
-    ChatUserProfile *userInfo = [ChatUserProfile sharedUser];
-    userInfo.minePhoto = [TLUser user].photo;
-    userInfo.mineNickName = [TLUser user].nickname;
     //
-    userInfo.friendPhoto = [toUser.photo convertImageUrl];
-    userInfo.friendNickName = toUser.nickname;
-    userInfo.friendUserId = toUser.userId;
-    
-    //
-    WaitingOrderVC *chatVC = [[WaitingOrderVC alloc] initWith:group];
+    WaitingOrderVC *chatVC = [WaitingOrderVC new];
     chatVC.orderCode = groupId;
 //    //
 //    c
