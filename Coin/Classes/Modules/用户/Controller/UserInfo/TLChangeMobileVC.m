@@ -151,7 +151,13 @@
     http.parameters[@"smsCaptcha"] = self.captchaView.captchaTf.text;
     http.parameters[@"token"] = [TLUser user].token;
     http.parameters[@"userId"] = [TLUser user].userId;
-
+    if ([self.phoneTf.text containsString:@"@"]) {
+        http.parameters[@"type"] = @"2";
+        
+    }else{
+        http.parameters[@"type"] = @"1";
+        
+    }
     [http postWithSuccess:^(id responseObject) {
         
         [TLAlert alertWithSucces:[LangSwitcher switchLang:@"修改成功" key:nil]];

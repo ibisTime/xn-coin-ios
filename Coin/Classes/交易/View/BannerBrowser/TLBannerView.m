@@ -76,31 +76,31 @@ static NSString * const XNBannerCellID = @"XNBannerCellID ";
 
 }
 
-//- (UIPageControl *)pageCtrl {
-//
-//    if (!_pageCtrl) {
-//        
-//        CGFloat pageControlHeight = 35;
-//        UIPageControl *tmpPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - pageControlHeight, self.frame.size.width, pageControlHeight)];
-//        [self addSubview:tmpPageControl];
-//        tmpPageControl.hidesForSinglePage = YES;
-//        tmpPageControl.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-//        tmpPageControl.currentPageIndicatorTintColor = [UIColor colorWithHexString:@"#cccccc"];
-//        tmpPageControl.pageIndicatorTintColor = [UIColor colorWithHexString:@"#fe4332"];
-//        _pageCtrl = tmpPageControl;
-//        
-//    }
-//    
-//    return _pageCtrl;
-//
-//}
+- (UIPageControl *)pageCtrl {
+
+    if (!_pageControl) {
+        
+        CGFloat pageControlHeight = 35;
+        UIPageControl *tmpPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - pageControlHeight, self.frame.size.width, pageControlHeight)];
+        [self addSubview:tmpPageControl];
+        tmpPageControl.hidesForSinglePage = YES;
+        tmpPageControl.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        tmpPageControl.currentPageIndicatorTintColor = [UIColor colorWithHexString:@"#cccccc"];
+        tmpPageControl.pageIndicatorTintColor = [UIColor colorWithHexString:@"#fe4332"];
+        _pageControl = tmpPageControl;
+        
+    }
+    
+    return _pageControl;
+
+}
 
 - (void)setImgUrls:(NSArray *)imgUrls {
 
     _imgUrls = [imgUrls copy];
     //对图片进行处理
     
-    //1.对URL进行处理
+//    1.对URL进行处理
 //    if(imgUrls.count > 0){
 //
 //        if (imgUrls.count > 1) {
@@ -115,8 +115,8 @@ static NSString * const XNBannerCellID = @"XNBannerCellID ";
 //
 //
 //        }
-//
-//
+
+
 //        if (_isAuto) {
 //
 //
@@ -171,17 +171,74 @@ static NSString * const XNBannerCellID = @"XNBannerCellID ";
 //            self.timer = tmpTimer;
 //
 //        }
-//
-//
+
+
 //        [self.bannerCollectionView reloadData];
 //    }else{
-        NSString *image = @"交易bannner2";
-        NSArray *arr = [NSArray arrayWithObject:image];
+        NSString *image = @"banner1234";
+        NSString *image2 = @"banner123";
+
+        NSArray *arr = [NSArray arrayWithObjects:image,image2,nil];
+
         _urls = [NSMutableArray arrayWithArray:arr];
+        if (_isAuto) {
+            
+            
+            //移除指示
+            [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                if ([obj isKindOfClass:[UIPageControl class]]) {
+                    [obj removeFromSuperview];
+                }
+                
+            }];
+            
+            //添加
+            CGFloat pageControlHeight = PAGE_CONTROL_HEIGHT;
+            UIPageControl *tmpPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - pageControlHeight, self.frame.size.width, pageControlHeight)];
+            [self addSubview:tmpPageControl];
+            tmpPageControl.hidesForSinglePage = YES;
+            tmpPageControl.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+            tmpPageControl.pageIndicatorTintColor = [UIColor colorWithHexString:@"#cecece"];
+            tmpPageControl.currentPageIndicatorTintColor = [UIColor colorWithHexString:@"#8a8a8a"];
+            
+            //
+            if (self.urls.count - 2 >= 2) {
+                
+                tmpPageControl.numberOfPages = self.urls.count - 2;
+                
+            } else {
+                
+                tmpPageControl.numberOfPages = 1;
+                
+            }
+            
+            //添加指示
+            [self addSubview:tmpPageControl];
+            self.pageControl = tmpPageControl;
+            
+            
+        }
+        
+        _currentPage = 0;
+        self.pageControl.currentPage = 0;
+        
+        
+        //销毁原来的定时器
+        
+        if (!self.timer) {
+            
+            __weak typeof(self) weakself = self;
+            
+            NSTimer *tmpTimer = [NSTimer timerWithTimeInterval:SCROLL_TIME_INTERVAL target:weakself selector:@selector(pageScroll) userInfo:nil repeats:YES];
+            [[NSRunLoop currentRunLoop] addTimer:tmpTimer forMode:NSRunLoopCommonModes];
+            self.timer = tmpTimer;
+            
+        }
         [self.bannerCollectionView reloadData];
 
 //    }
-    
+
 }
 
 
@@ -192,12 +249,16 @@ static NSString * const XNBannerCellID = @"XNBannerCellID ";
     }
     
     _currentPage ++;
+    if (_currentPage == 2) {
+      [self.bannerCollectionView  setContentOffset:CGPointMake(1 * ITEM_WIDTH, 0) animated:YES];
+    }else{
+         [self.bannerCollectionView  setContentOffset:CGPointMake(_currentPage * ITEM_WIDTH, 0) animated:YES];
+    }
+   
     
-    [self.bannerCollectionView  setContentOffset:CGPointMake(_currentPage * ITEM_WIDTH, 0) animated:YES];
-    
-    if (_currentPage == self.urls.count - 1) {
+    if (_currentPage == self.urls.count - 0) {
         
-        _currentPage = 0;
+        _currentPage = -1;
         
     }
     
@@ -219,7 +280,7 @@ static NSString * const XNBannerCellID = @"XNBannerCellID ";
     _currentPage = index - 1;
  
 //    //不循环
-    if(_urls.count <= 2) return;
+    if(_urls.count <= 3) return;
     
     self.pageControl.currentPage = _currentPage;
     //最后一个

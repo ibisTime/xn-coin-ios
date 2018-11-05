@@ -37,6 +37,10 @@
 
 @property (nonatomic, copy) NSString *kind;
 
+@property (nonatomic, copy) NSString *zfbQr;
+
+@property (nonatomic, copy) NSString *zfbAccount;
+
 /**
   最后的登录时间
  */

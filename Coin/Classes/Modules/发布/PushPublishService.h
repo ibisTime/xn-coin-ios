@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 typedef NS_ENUM(NSInteger, PushPublishType) {
     
     //以下 2 种方式，在 设置VC type时 应该不会单独出现

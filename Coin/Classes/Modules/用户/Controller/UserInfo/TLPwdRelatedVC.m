@@ -116,28 +116,44 @@
     //验证码
     CaptchaView *captchaView = [[CaptchaView alloc] initWithFrame:CGRectMake(phoneTf.x, captchaViewY, phoneTf.width, phoneTf.height) leftTitleWidth:100];
     
-    captchaView.captchaTf.leftLbl.text = [LangSwitcher switchLang:@"短信验证码" key:nil];
+    captchaView.captchaTf.leftLbl.text = [LangSwitcher switchLang:@"验证码" key:nil];
     
     [self.bgSV addSubview:captchaView];
     _captchaView = captchaView;
     [captchaView.captchaBtn addTarget:self action:@selector(sendCaptcha) forControlEvents:UIControlEventTouchUpInside];
     
     //新密码
-    TLTextField *pwdTf = [[TLTextField alloc] initWithFrame:CGRectMake(phoneTf.x, captchaView.yy + 10, phoneTf.width, phoneTf.height)
-                                                  leftTitle:[LangSwitcher switchLang:@"新密码" key:nil]
-                                                 titleWidth:leftW
-                                                placeholder:[LangSwitcher switchLang:@"请输入密码(不少于6位)" key:nil]];
-    
-    pwdTf.returnKeyType = UIReturnKeyNext;
-    
-    [pwdTf addTarget:self action:@selector(next:) forControlEvents:UIControlEventEditingDidEndOnExit];
-    
-    [self.bgSV addSubview:pwdTf];
-    pwdTf.secureTextEntry = YES;
-    self.pwdTf = pwdTf;
-    
+   
+    if (self.type == TLPwdTypeTradeReset) {
+        
+        TLTextField *pwdTf = [[TLTextField alloc] initWithFrame:CGRectMake(phoneTf.x, captchaView.yy + 10, phoneTf.width, phoneTf.height)
+                                                      leftTitle:[LangSwitcher switchLang:@"新资金密码" key:nil]
+                                                     titleWidth:leftW
+                                                    placeholder:[LangSwitcher switchLang:@"请输入新的资金密码(不少于6位)" key:nil]];
+        
+        pwdTf.returnKeyType = UIReturnKeyNext;
+        
+        [pwdTf addTarget:self action:@selector(next:) forControlEvents:UIControlEventEditingDidEndOnExit];
+        
+        [self.bgSV addSubview:pwdTf];
+        pwdTf.secureTextEntry = YES;
+        self.pwdTf = pwdTf;
+    }else{
+        TLTextField *pwdTf = [[TLTextField alloc] initWithFrame:CGRectMake(phoneTf.x, captchaView.yy + 10, phoneTf.width, phoneTf.height)
+                                                      leftTitle:[LangSwitcher switchLang:@"新密码" key:nil]
+                                                     titleWidth:leftW
+                                                    placeholder:[LangSwitcher switchLang:@"请输入密码(不少于6位)" key:nil]];
+        
+        pwdTf.returnKeyType = UIReturnKeyNext;
+        
+        [pwdTf addTarget:self action:@selector(next:) forControlEvents:UIControlEventEditingDidEndOnExit];
+        
+        [self.bgSV addSubview:pwdTf];
+        pwdTf.secureTextEntry = YES;
+        self.pwdTf = pwdTf;
+    }
     //重新输入
-    TLTextField *rePwdTf = [[TLTextField alloc] initWithFrame:CGRectMake(phoneTf.x, pwdTf.yy + 1, phoneTf.width, phoneTf.height)
+    TLTextField *rePwdTf = [[TLTextField alloc] initWithFrame:CGRectMake(phoneTf.x, self.pwdTf.yy + 1, phoneTf.width, phoneTf.height)
                                                     leftTitle:[LangSwitcher switchLang:@"确认密码" key:nil]
                                                    titleWidth:leftW
                                                   placeholder:[LangSwitcher switchLang:@"请确认密码" key:nil]];

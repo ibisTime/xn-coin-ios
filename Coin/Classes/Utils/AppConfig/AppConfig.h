@@ -29,6 +29,8 @@ FOUNDATION_EXPORT void TLLog(NSString *format, ...);
 @property (nonatomic, strong) NSString *addr;
 //@property (nonatomic,copy) NSString *aliPayKey;
 @property (nonatomic, copy) NSString *qiniuDomain;
+@property (nonatomic, copy) NSString *ossDomain;
+
 @property (nonatomic,strong) NSString *shareBaseUrl;
 @property (nonatomic, assign) BOOL isChecking;
 

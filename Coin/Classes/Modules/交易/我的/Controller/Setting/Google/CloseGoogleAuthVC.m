@@ -72,7 +72,7 @@
     //短信验证码
     self.captchaView = [[CaptchaView alloc] initWithFrame:CGRectMake(leftMargin, self.googleAuthTF.yy, kScreenWidth - 2*leftMargin, height)];
     
-    self.captchaView.captchaTf.leftLbl.text = [LangSwitcher switchLang:@"短信验证码" key:nil];
+    self.captchaView.captchaTf.leftLbl.text = [LangSwitcher switchLang:@"验证码" key:nil];
     
     [self.captchaView.captchaBtn addTarget:self action:@selector(sendCaptcha) forControlEvents:UIControlEventTouchUpInside];
     
@@ -159,7 +159,7 @@
     
     if (![self.captchaView.captchaTf.text valid]) {
         
-        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入短信验证码" key:nil]];
+        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入验证码" key:nil]];
         return ;
     }
     
@@ -167,7 +167,14 @@
     
     http.code = @"805072";
     http.showView = self.view;
-    
+    if ([TLUser user].mobile.length > 0) {
+        http.parameters[@"type"] = @"1";
+        
+    }else{
+        
+        http.parameters[@"type"] = @"2";
+        
+    }
     http.parameters[@"googleCaptcha"] = self.googleAuthTF.text;
     http.parameters[@"smsCaptcha"] = self.captchaView.captchaTf.text;
     http.parameters[@"userId"] = [TLUser user].userId;

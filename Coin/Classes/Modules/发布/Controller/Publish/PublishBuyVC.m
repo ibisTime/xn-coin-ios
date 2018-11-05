@@ -214,7 +214,7 @@
     
     draft.buyTotal = self.publishView.buyTotalTF.text;
     
-    draft.payType = [NSString stringWithFormat:@"%ld", self.publishView.payTypeIndex];
+    draft.payType = @"0";
     
     draft.payLimit = self.publishView.payLimitPicker.text;
     

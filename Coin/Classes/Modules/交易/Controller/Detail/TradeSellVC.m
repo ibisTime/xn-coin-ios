@@ -109,7 +109,55 @@
     }];
     
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+    [super viewWillAppear:animated];
+    // ----------先获取广告详情
+    CoinWeakSelf;
+    TLNetworking *http = [TLNetworking new];
+    http.code = @"625226";
+    http.showView = self.view;
+    http.parameters[@"adsCode"] = self.adsCode;
+    if ([TLUser user].isLogin) {
+        
+        http.parameters[@"userId"] = [TLUser user].userId;
+    }
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.advertise = [AdvertiseModel tl_objectWithDictionary:responseObject[@"data"]];
+        
+        //
+        
+        weakSelf.tradeView.advertise = self.advertise;
+        weakSelf.tradeView.truePrice = self.advertise.truePrice;
+        
+     
+        //广告剩余可用余额
+        weakSelf.tradeView.leftInfo = @"--";
+        
+      
+        
+        if ([[TLUser user] checkLogin]) {
+            
+            [self getLeftAmount];
+            
+        } else {
+            
+            weakSelf.tradeView.leftInfo = [NSString stringWithFormat:@"广告剩余可交易量: %@ %@", [CoinUtil convertToRealCoin:self.advertise.leftCountString coin:_advertise.tradeCoin], self.advertise.tradeCoin];
+       
+            
+        }
+        
+    
+        
+    } failure:^(NSError *error) {
+        
+        
+        
+    }];
+    
+}
 - (void)viewDidLayoutSubviews {
     
     [super viewDidLayoutSubviews];

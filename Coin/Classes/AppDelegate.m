@@ -173,7 +173,17 @@
 //    }];
 
     //
+    
     UITabBarController *tabbarContrl = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    if ([tabbarContrl isKindOfClass:[TLUpdateVC class]]) {
+        TLTabBarController *ta = [[TLTabBarController alloc] init];
+        self.window.rootViewController = ta;
+        ta.selectedIndex = 0;
+        [ta.tabBar hideBadgeOnItemIndex:3];
+
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+        return;
+    }
     tabbarContrl.selectedIndex = 0;
     [tabbarContrl.tabBar hideBadgeOnItemIndex:3];
     //应用外数量为0

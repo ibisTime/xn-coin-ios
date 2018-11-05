@@ -76,6 +76,9 @@ typedef NS_ENUM(NSUInteger, AdsType) {
 @property (nonatomic, strong) NSArray<Displaytime *> *displayTime;
 
 
+//收款码
+
+@property (nonatomic, copy) NSString *payAccountQr;
 /**
   是否为我的广告
  */

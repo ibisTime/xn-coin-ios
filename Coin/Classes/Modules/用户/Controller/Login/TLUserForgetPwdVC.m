@@ -119,12 +119,14 @@
     if([self.phoneTf.text containsString:@"@"])
     {
         http.code = EMAIL_CODE;
-        
+        http.parameters[@"email"] = self.phoneTf.text;
+
     }else{
         http.code = CAPTCHA_CODE;
-        
-    }    http.parameters[@"bizType"] = USER_FIND_PWD_CODE;
-    http.parameters[@"mobile"] = self.phoneTf.text;
+        http.parameters[@"mobile"] = self.phoneTf.text;
+
+    }
+    http.parameters[@"bizType"] = USER_FIND_PWD_CODE;
     
     [http postWithSuccess:^(id responseObject) {
         

@@ -518,8 +518,8 @@
     
     if (self.isChoosePayType) {
         
-        NSString *payType = [NSString stringWithFormat:@"%ld", _payTypeIndex];
-        resultVC.payType = payType;
+//        NSString *payType = [NSString stringWithFormat:@"%ld", _payTypeIndex];
+        resultVC.payType = @"0";
         
     }
   

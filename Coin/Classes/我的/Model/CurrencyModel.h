@@ -34,6 +34,8 @@
 @property (nonatomic,copy) NSString *systemCode;
 @property (nonatomic,copy) NSString *type;
 @property (nonatomic,copy) NSString *userId;
+@property (nonatomic,copy) NSString *zfbQR;
+
 //最后一次流水
 @property (nonatomic, copy) NSString *lastOrder;
 

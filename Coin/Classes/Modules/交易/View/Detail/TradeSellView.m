@@ -268,7 +268,7 @@
     self.contentTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, self.ethTF.yy, kScreenWidth, 35)
                                               leftTitle:[LangSwitcher switchLang:@"支付宝账号" key:nil]
                                              titleWidth:120
-                                            placeholder:[LangSwitcher switchLang:@"请输入支付宝账号"    key:nil]];
+                                            placeholder:[LangSwitcher switchLang:@""    key:nil]];
     
     if ([TLUser user].zfbAccount) {
         self.contentTf.text = [TLUser user].zfbAccount;
@@ -287,11 +287,6 @@
     QRimageView.layer.borderColor = kLineColor.CGColor;
     
    
-    if ([TLUser user].zfbQr) {
-        [QRimageView sd_setImageWithURL:[NSURL URLWithString:[[TLUser user].zfbQr convertImageUrl]]];
-        
-        
-    }
 }
 
 - (void)initTradePrompt {
@@ -372,6 +367,9 @@
     self.cnyTF.placeholder = [NSString stringWithFormat:@"%@-%@ ",[advertise.minTrade convertToSimpleRealMoney], [advertise.maxTrade convertToSimpleRealMoney]];
     //留言
     self.leaveMsgTV.text = advertise.leaveMessage;
+    if ([TLUser user].zfbQr) {
+        [self.QRimageView sd_setImageWithURL:[NSURL URLWithString:[[TLUser user].zfbQr convertImageUrl]]];
+    }
 }
 
 - (void)setLeftInfo:(NSString *)leftInfo {

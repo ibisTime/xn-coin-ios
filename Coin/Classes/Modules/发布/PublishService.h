@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "FTUtils+NSObject.h"
 typedef NS_ENUM(NSInteger, PublishType) {
     

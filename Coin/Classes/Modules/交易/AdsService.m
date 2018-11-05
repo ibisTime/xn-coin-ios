@@ -60,6 +60,8 @@
  
         }
         
+        
+        
         TradeSellVC *sellVC = [TradeSellVC new];
         sellVC.adsCode = advertiseModel.code;
         [currentVC.navigationController pushViewController:sellVC animated:YES];

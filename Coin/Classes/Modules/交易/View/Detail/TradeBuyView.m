@@ -24,7 +24,8 @@
 #import "PayTypeModel.h"
 #import "AdsDetailUserView.h"
 #import "CoinUtil.h"
-
+#import <UIImageView+WebCache.h>
+#import "CaptchaView.h"
 #define myDotNumbers     @"0123456789.\n"
 #define myNumbers          @"0123456789\n"
 
@@ -47,7 +48,15 @@
 //底部
 @property (nonatomic, strong) AdsDetailBottomOpView *bottomView;
 
+@property (nonatomic, strong) TLTextField *contentTf;
+//@property (nonatomic, strong) TLTextField *codeTf;
+@property (nonatomic, strong) CaptchaView *captchaView;
 
+@property (nonatomic, strong) UIImageView *QRimageView;
+
+@property (nonatomic, strong) UIButton *addButton;
+
+@property (nonatomic, copy) NSString *key;
 
 @end
 
@@ -130,34 +139,32 @@
 - (void)initBuyView {
     
     self.buyView = [[UIView alloc] init];
+    
     self.buyView.backgroundColor = kWhiteColor;
+    
     [self.scrollView addSubview:self.buyView];
     [self.buyView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(@0);
         make.width.equalTo(@(kScreenWidth));
         make.top.equalTo(self.leaveMsgView.mas_bottom).offset(10);
-        make.height.equalTo(@120);
+        make.height.equalTo(@250);
     }];
     
-    //想要购买多少
-    UIButton *wantBuyBtn = [UIButton buttonWithTitle:
-                            [LangSwitcher switchLang:@"你想购买多少?" key:nil]
-                                          titleColor:kTextColor
-                                     backgroundColor:kClearColor
-                                           titleFont:15.0];
+    //想要出售多少
+    UIButton *wantSellBtn = [UIButton buttonWithTitle:@"你想购买多少?" titleColor:kTextColor backgroundColor:kClearColor titleFont:15.0];
     
-    [wantBuyBtn setImage:kImage(@"想要多少") forState:UIControlStateNormal];
+    [wantSellBtn setImage:kImage(@"想要多少") forState:UIControlStateNormal];
     
-    [self.buyView addSubview:wantBuyBtn];
-    [wantBuyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.buyView addSubview:wantSellBtn];
+    [wantSellBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.top.equalTo(@13);
         make.width.equalTo(@190);
         
     }];
     
-    [wantBuyBtn setTitleRight];
+    [wantSellBtn setTitleRight];
     
     //可用余额
     self.leftAmountLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kThemeColor font:12.0];
@@ -166,7 +173,7 @@
     [self.leftAmountLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(@15);
-        make.top.equalTo(wantBuyBtn.mas_bottom).offset(13);
+        make.top.equalTo(wantSellBtn.mas_bottom).offset(13);
         
     }];
     
@@ -177,7 +184,7 @@
     [iconIV mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.centerX.equalTo(@0);
-        make.bottom.equalTo(@(-25));
+        make.top.equalTo(self.leftAmountLbl.mas_bottom).offset(15);
         make.width.height.equalTo(@(24));
         
     }];
@@ -186,12 +193,14 @@
     CGFloat tfHeight = 44;
     //CNY
     self.cnyTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, 60, tfW, 44) leftTitle:@"CNY" titleWidth:55 placeholder:@""];
+    
     self.cnyTF.delegate = self;
+    
     self.cnyTF.keyboardType = UIKeyboardTypeDecimalPad;
-    [self.buyView addSubview:self.cnyTF];
     
     [self.cnyTF addTarget:self action:@selector(ethDidChange:) forControlEvents:UIControlEventEditingChanged];
-
+    
+    [self.buyView addSubview:self.cnyTF];
     [self.cnyTF mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(@0);
@@ -199,31 +208,31 @@
         make.width.equalTo(@(tfW));
         make.height.mas_equalTo(tfHeight);
         
+        
     }];
     
     //leftLine
     UIView *leftLine = [[UIView alloc] init];
+    
     leftLine.backgroundColor = kLineColor;
+    
     [self.buyView addSubview:leftLine];
     [leftLine mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.cnyTF.mas_left).offset(15);
         make.right.equalTo(self.cnyTF.mas_right);
-        make.bottom.equalTo(@(-15));
+        make.top.equalTo(self.cnyTF.mas_bottom).offset(5);
         make.height.equalTo(@0.5);
-
         
     }];
     
     //ETH
-    self.ethTF = [[TLTextField alloc] initWithFrame:CGRectMake(kScreenWidth/2.0 + 5, 65, tfW, 44)
-                                          leftTitle:@""
-                                         titleWidth:50
-                                        placeholder: [LangSwitcher switchLang:@"请输入数值" key:nil]];
+    self.ethTF = [[TLTextField alloc] initWithFrame:CGRectMake(kScreenWidth/2.0 + 5, 65, tfW, 44) leftTitle:@"ETH" titleWidth:80 placeholder:@"请输入数值"];
     
     self.ethTF.delegate = self;
     self.ethTF.keyboardType = UIKeyboardTypeDecimalPad;
     [self.ethTF addTarget:self action:@selector(cnyDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
     [self.buyView addSubview:self.ethTF];
     [self.ethTF mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -231,22 +240,46 @@
         make.centerY.equalTo(iconIV.mas_centerY);
         make.width.equalTo(@(tfW));
         make.height.mas_equalTo(tfHeight);
-
         
     }];
     
     //rightLine
     UIView *rightLine = [[UIView alloc] init];
+    
     rightLine.backgroundColor = kLineColor;
+    
     [self.buyView addSubview:rightLine];
     [rightLine mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.ethTF.mas_left).offset(15);
         make.right.equalTo(self.ethTF.mas_right);
-        make.bottom.equalTo(@(-15));
+        make.top.equalTo(self.cnyTF.mas_bottom).offset(5);
         make.height.equalTo(@0.5);
         
     }];
+    
+    
+    self.contentTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, self.ethTF.yy, kScreenWidth, 35)
+                                              leftTitle:[LangSwitcher switchLang:@"支付宝账号" key:nil]
+                                             titleWidth:120
+                                            placeholder:[LangSwitcher switchLang:@""    key:nil]];
+    
+    if ([TLUser user].zfbAccount) {
+        self.contentTf.text = [TLUser user].zfbAccount;
+    }
+    self.contentTf.keyboardType = UIKeyboardTypeEmailAddress;
+    [self.buyView addSubview:self.contentTf];
+    
+    
+    UIImageView *QRimageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.contentTf.yy+5, 100, 100)];
+    self.QRimageView = QRimageView;
+    QRimageView.contentMode = UIViewContentModeScaleToFill;
+    QRimageView.userInteractionEnabled = YES;
+    [self.buyView addSubview:QRimageView];
+    QRimageView.layer.cornerRadius = 5;
+    QRimageView.layer.borderWidth = 0.5;
+    QRimageView.layer.borderColor = kLineColor.CGColor;
+    
 }
 
 - (void)initTradePrompt {
@@ -257,10 +290,10 @@
     
     [self.scrollView addSubview:self.tradePromptView];
     [self.tradePromptView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(@0);
-        make.width.equalTo(@(kScreenWidth));
         make.top.equalTo(self.buyView.mas_bottom).offset(10);
+
+        make.left.equalTo(self.scrollView.mas_left);
+        make.width.equalTo(@(kScreenWidth));
     }];
     
     //交易提醒
@@ -330,6 +363,9 @@
                               [advertise.maxTrade convertToSimpleRealMoney]];
     //留言
     self.leaveMsgTV.text = advertise.leaveMessage;
+    if (advertise.payAccountQr) {
+        [self.QRimageView sd_setImageWithURL:[NSURL URLWithString:[_advertise.payAccountQr convertImageUrl]]];
+    }
 }
 
 - (void)setLeftAmount:(NSString *)leftAmount {

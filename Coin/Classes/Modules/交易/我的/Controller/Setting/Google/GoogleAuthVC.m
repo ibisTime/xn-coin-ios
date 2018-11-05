@@ -71,7 +71,7 @@
     self.googleAuthTF = [[TLTextField alloc] initWithFrame:CGRectMake(leftMargin, self.secretTF.yy, kScreenWidth - 2*leftMargin, height)
                                              leftTitle:[LangSwitcher switchLang:@"谷歌验证码" key:nil]
                                             titleWidth:leftW
-                                           placeholder:[LangSwitcher switchLang:@"请输入谷歌验证码" key:nil]];
+                                           placeholder:[LangSwitcher switchLang:@"请输入验证码" key:nil]];
     
     self.googleAuthTF.keyboardType = UIKeyboardTypeNumberPad;
 
@@ -90,7 +90,7 @@
     
     //短信验证码
     self.captchaView = [[CaptchaView alloc] initWithFrame:CGRectMake(leftMargin, self.googleAuthTF.yy, kScreenWidth - 2*leftMargin, height) leftTitleWidth:100];
-    self.captchaView.captchaTf.leftLbl.text = [LangSwitcher switchLang:@"短信验证码" key:nil];
+    self.captchaView.captchaTf.leftLbl.text = [LangSwitcher switchLang:@"验证码" key:nil];
     [self.captchaView.captchaBtn addTarget:self action:@selector(sendCaptcha) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.captchaView];
     
@@ -179,34 +179,41 @@
     
     if (![self.googleAuthTF.text valid]) {
         
-        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入谷歌验证码" key:nil]];
+        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入验证码" key:nil]];
         return;
     }
     
     //判断谷歌验证码是否为纯数字
     if (![NSString isPureNumWithString:self.googleAuthTF.text]) {
         
-        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入正确的谷歌验证码" key:nil]];
+        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入正确的验证码" key:nil]];
         return ;
     }
     
     //判断谷歌验证码是否为6位
     if (self.googleAuthTF.text.length != 6) {
         
-        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入正确的谷歌验证码" key:nil]];
+        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入正确的验证码" key:nil]];
         return ;
     }
     
     if (![self.captchaView.captchaTf.text valid]) {
         
-        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入短信验证码" key:nil]];
+        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入验证码" key:nil]];
         return ;
     }
     
     TLNetworking *http = [TLNetworking new];
     http.code = @"805071";
     http.showView = self.view;
-    
+    if ([TLUser user].mobile.length > 0) {
+        http.parameters[@"type"] = @"1";
+        
+    }else{
+        
+        http.parameters[@"type"] = @"2";
+        
+    }
     http.parameters[@"googleCaptcha"] = self.googleAuthTF.text;
     http.parameters[@"secret"] = self.secretTF.text;
     http.parameters[@"smsCaptcha"] = self.captchaView.captchaTf.text;

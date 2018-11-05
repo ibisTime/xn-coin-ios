@@ -374,7 +374,7 @@
       
         
         self.group.sections = @[
-                                @[advertisement, order, address, trust, inviteFriend],
+                                @[advertisement, order, address, trust],
                                 @[securityCenter, personalSetting, abountUs]
                                 ];
         

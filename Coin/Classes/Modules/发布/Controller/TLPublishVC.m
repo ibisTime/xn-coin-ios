@@ -889,7 +889,7 @@
     self.payTimeLimitView.markLbl.text = [LangSwitcher switchLang:@"分钟" key:nil];
     self.payTimeLimitView.textField.enabled = NO;
     [self.payTimeLimitView adddMaskBtn];
-    self.payTimeLimitView.hintMsg = publishService.payLimit;
+    self.payTimeLimitView.hintMsg = @"6";
     //收款方式
     self.payTypeView = [[TLPublishInputView alloc] initWithFrame:CGRectMake(0, self.payTimeLimitView.yy, width, height)];
     [self.contentView addSubview:self.payTypeView];
@@ -905,7 +905,7 @@
     //支付宝账号
         self.payCount = [[TLPublishInputView alloc] initWithFrame:CGRectMake(0, self.payTypeView.yy, width, height)];
         [self.contentView addSubview:self.payCount];
-
+    self.payCount.introduceBtn.hidden = YES;
         self.payCount.leftLbl.text = [LangSwitcher switchLang:@"收款码 " key:nil];
     
         self.payCount.textField.enabled = NO;

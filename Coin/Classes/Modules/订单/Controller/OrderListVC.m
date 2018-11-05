@@ -50,6 +50,9 @@
             
         });
         
+    }else{
+        [self refresh];
+        
     }
     self.timer = [NSTimer timerWithTimeInterval:60*10 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];

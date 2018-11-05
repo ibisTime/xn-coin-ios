@@ -95,6 +95,9 @@
         self.isFirst = NO;
         [self.tableView beginRefreshing];
         
+    }else{
+        [self.tableView beginRefreshing];
+
     }
     
 //     [self refreshOpenCoinList];
@@ -612,9 +615,24 @@
 
 #pragma mark - RefreshDelegate
 - (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    AdvertiseModel *advertiseModel = self.advertises[indexPath.row];
-    [AdsService pushToAdsDetail:advertiseModel currentVC:self];
+    if (![TLUser user].isLogin) {
+        CoinWeakSelf;
+        TLUserLoginVC *loginVC = [[TLUserLoginVC alloc] init];
+        TLNavigationController *nav = [[TLNavigationController alloc] initWithRootViewController:loginVC];
+        loginVC.loginSuccess = ^(){
+            AdvertiseModel *advertiseModel = weakSelf.advertises[indexPath.row];
+            [AdsService pushToAdsDetail:advertiseModel currentVC:weakSelf];
+        };
+        
+        [self presentViewController:nav animated:YES completion:nil];
+        
+        return;
+    }else{
+        
+        AdvertiseModel *advertiseModel = self.advertises[indexPath.row];
+        [AdsService pushToAdsDetail:advertiseModel currentVC:self];
+    }
+  
 }
 
 @end
