@@ -120,7 +120,16 @@
     http.showView = self.view;
     http.code = CAPTCHA_CODE;
     http.parameters[@"bizType"] = @"805072";
-    http.parameters[@"mobile"] = [TLUser user].mobile;
+    if ([TLUser user].mobile.length >0) {
+        http.parameters[@"mobile"] = [TLUser user].mobile;
+
+    }else{
+        
+        http.code = EMAIL_CODE;
+
+        http.parameters[@"email"] = [TLUser user].email;
+
+    }
     
     [http postWithSuccess:^(id responseObject) {
         

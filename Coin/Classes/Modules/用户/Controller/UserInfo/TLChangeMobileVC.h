@@ -10,6 +10,7 @@
 
 @interface TLChangeMobileVC : TLAccountSetBaseVC
 
+@property (nonatomic, copy) void(^done)(NSString *content) ;
 
 @property (nonatomic,copy) void(^changeMobileSuccess)(NSString *mobile);
 

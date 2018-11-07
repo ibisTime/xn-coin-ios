@@ -23,7 +23,6 @@
 @property (nonatomic,strong) TLTextField *phoneTf;
 @property (nonatomic,strong) TLCaptchaView *captchaView;
 //@property (nonatomic,strong) TLTextField *tradePwdTf;
-
 @end
 
 @implementation TLChangeMobileVC
@@ -32,26 +31,35 @@
     [super viewDidLoad];
     
     CGFloat leftW = 90;
-    self.title = [LangSwitcher switchLang:@"手机号" key:nil];
+    self.title = [LangSwitcher switchLang:@"绑定手机号" key:nil];
     CGFloat leftMargin = 0;
     
     //手机号
     TLTextField *phoneTf = [[TLTextField alloc] initWithFrame:CGRectMake(leftMargin, 10, kScreenWidth - 2*leftMargin, 45)
                                                     leftTitle:[LangSwitcher switchLang:@"手机号" key:nil]
                                                    titleWidth:leftW
-                                                  placeholder:[LangSwitcher switchLang:@"请输入新手机号" key:nil]];
+                                                  placeholder:[LangSwitcher switchLang:@"请输入手机号" key:nil]];
     phoneTf.keyboardType = UIKeyboardTypeNumberPad;
     [self.bgSV addSubview:phoneTf];
     self.phoneTf = phoneTf;
-    
-    phoneTf.text = [TLUser user].mobile;
-    phoneTf.userInteractionEnabled = NO;
-    //验证码
-//    TLCaptchaView *captchaView = [[TLCaptchaView alloc] initWithFrame:CGRectMake(phoneTf.x, phoneTf.yy + 1, phoneTf.width, phoneTf.height)];
-//    [self.bgSV addSubview:captchaView];
-//    self.captchaView = captchaView;
-//    [captchaView.captchaBtn addTarget:self action:@selector(sendCaptcha) forControlEvents:UIControlEventTouchUpInside];
-    
+    if ([TLUser user].mobile.length >0) {
+        phoneTf.text = [TLUser user].mobile;
+        phoneTf.userInteractionEnabled = NO;
+    }else{
+        
+        phoneTf.userInteractionEnabled = YES;
+        //新手机号
+       
+        //验证码
+        TLCaptchaView *newCaptchaView = [[TLCaptchaView alloc] initWithFrame:CGRectMake(phoneTf.x, phoneTf.yy + 1, phoneTf.width, phoneTf.height)];
+        [self.bgSV addSubview:newCaptchaView];
+        self.captchaView = newCaptchaView;
+        [newCaptchaView.captchaBtn addTarget:self action:@selector(sendCaptcha) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+    }
+   
+
 //    //资金密码按钮
 //    TLTextField *tradePwdTf = [[TLTextField alloc] initWithframe:CGRectMake(0, captchaView.yy  + 1, kScreenWidth, 50) leftTitle:@"资金密码" titleWidth:90 placeholder:@"请输入支付密码"];
 //    tradePwdTf.secureTextEntry = YES;
@@ -59,23 +67,14 @@
 //    [self.view addSubview:tradePwdTf];
 //    self.tradePwdTf = tradePwdTf;
     
-//    //新手机号
-//    TLTextField *newPhoneTf = [[TLTextField alloc] initWithframe:CGRectMake(0, captchaView.yy + 20, kScreenWidth, 45)
-//                                                    leftTitle:@"新手机号"
-//                                                   titleWidth:leftW
-//                                                  placeholder:@"请输入手机号"];
-//    [self.bgSV addSubview:newPhoneTf];
-//    
-//    //验证码
-//    TLCaptchaView *newCaptchaView = [[TLCaptchaView alloc] initWithFrame:CGRectMake(phoneTf.x, newPhoneTf.yy + 1, phoneTf.width, phoneTf.height)];
-//    [self.bgSV addSubview:newCaptchaView];
+  
     
     //确认按钮
-//    UIButton *confirmBtn = [UIButton buttonWithTitle:[LangSwitcher switchLang:@"确认修改" key:nil] titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:16.0 cornerRadius:5];
-//    
-//    confirmBtn.frame = CGRectMake(15, captchaView.yy + 30, kScreenWidth - 30, 44);
-//    [self.bgSV addSubview:confirmBtn];
-//    [confirmBtn addTarget:self action:@selector(confirm) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *confirmBtn = [UIButton buttonWithTitle:[LangSwitcher switchLang:@"确认修改" key:nil] titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:16.0 cornerRadius:5];
+    
+    confirmBtn.frame = CGRectMake(15, self.captchaView.yy + 30, kScreenWidth - 30, 44);
+    [self.bgSV addSubview:confirmBtn];
+    [confirmBtn addTarget:self action:@selector(confirm) forControlEvents:UIControlEventTouchUpInside];
     
     //
 //    UIButton *setPwdBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, confirmBtn.yy + 10, kScreenWidth - 30, 30) title:@"您还未设置资金密码,前往设置->" backgroundColor:[UIColor clearColor]];
@@ -151,23 +150,20 @@
     http.parameters[@"smsCaptcha"] = self.captchaView.captchaTf.text;
     http.parameters[@"token"] = [TLUser user].token;
     http.parameters[@"userId"] = [TLUser user].userId;
-    if ([self.phoneTf.text containsString:@"@"]) {
-        http.parameters[@"type"] = @"2";
-        
-    }else{
-        http.parameters[@"type"] = @"1";
-        
-    }
+   
     [http postWithSuccess:^(id responseObject) {
         
         [TLAlert alertWithSucces:[LangSwitcher switchLang:@"修改成功" key:nil]];
         [TLUser user].mobile = self.phoneTf.text;
-        
+        [[TLUser user] updateUserInfo];
+
         //保存用户账号和密码
 //        [[TLUser user] saveUserName:self.phoneTf.text pwd:[TLUser user].userPassward];
         
         [self.navigationController popViewControllerAnimated:YES];
-        
+        if (self.done) {
+            self.done(self.phoneTf.text);
+        }
         
     } failure:^(NSError *error) {
         

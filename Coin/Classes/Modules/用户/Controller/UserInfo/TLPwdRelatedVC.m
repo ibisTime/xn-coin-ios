@@ -47,7 +47,13 @@
     if ([TLUser user].mobile) {
         
         self.phoneTf.enabled = NO;
-        self.phoneTf.text = [TLUser user].mobile;
+        if ([TLUser user].mobile.length > 0) {
+            self.phoneTf.text = [TLUser user].mobile;
+
+        }else{
+            self.phoneTf.text = [TLUser user].email;
+
+        }
     }
     
     if(self.type == TLPwdTypeForget) {
@@ -78,9 +84,9 @@
     
     //手机号
     TLTextField *phoneTf = [[TLTextField alloc] initWithFrame:CGRectMake(0, 10, kScreenWidth, 45)
-                                                    leftTitle:[LangSwitcher switchLang:@"手机号" key:nil]
+                                                    leftTitle:[LangSwitcher switchLang:@"账号" key:nil]
                                                    titleWidth:leftW
-                                                  placeholder:[LangSwitcher switchLang:@"请输入手机号" key:nil]];
+                                                  placeholder:[LangSwitcher switchLang:@"请输入账号" key:nil]];
     [self.bgSV addSubview:phoneTf];
     self.phoneTf = phoneTf;
     
@@ -213,8 +219,14 @@
         http.parameters[@"bizType"] = USER_SET_TRADE_PWD;
         
     }
-    
-    http.parameters[@"mobile"] = self.phoneTf.text;
+    if ([self.phoneTf.text containsString:@"@"]) {
+        http.parameters[@"email"] = self.phoneTf.text;
+        http.code = EMAIL_CODE;
+
+    }else{
+        http.parameters[@"mobile"] = self.phoneTf.text;
+
+    }
     [http postWithSuccess:^(id responseObject) {
         
         [TLAlert alertWithSucces:[LangSwitcher switchLang:@"验证码已发送,请注意查收" key:nil]];
@@ -255,7 +267,7 @@
     
     if (![self.phoneTf.text isPhoneNum]) {
         
-        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入正确的手机号" key:nil]];
+        [TLAlert alertWithInfo:[LangSwitcher switchLang:@"请输入正确的账号" key:nil]];
         
         return;
     }

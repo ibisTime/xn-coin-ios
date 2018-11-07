@@ -42,6 +42,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
+    [self.tableView beginRefreshing];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     
 }

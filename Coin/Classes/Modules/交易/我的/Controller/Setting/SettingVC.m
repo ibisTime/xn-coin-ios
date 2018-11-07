@@ -41,7 +41,7 @@
 @property (nonatomic, strong) SettingModel *realNameSettingModel;
 @property (nonatomic, strong) SettingModel *emailSettingModel;
 @property (nonatomic, strong) SettingModel *googleAuthSettingModel;
-
+@property (nonatomic, strong)SettingModel *changeMobile;
 @end
 
 @implementation SettingVC
@@ -147,10 +147,30 @@
     SettingModel *changeMobile = [SettingModel new];
     changeMobile.text = [LangSwitcher switchLang:@"手机号" key:nil];
     changeMobile.subText = [TLUser user].mobile;
+    self.changeMobile = changeMobile;
     [changeMobile setAction:^{
         
-        TLChangeMobileVC *changeMobileVC = [[TLChangeMobileVC alloc] init];
-        [weakSelf.navigationController pushViewController:changeMobileVC animated:YES];
+        if ([TLUser user].mobile.length > 0) {
+            return ;
+        }else{
+            
+            TLChangeMobileVC *changeMobileVC = [[TLChangeMobileVC alloc] init];
+            
+            changeMobileVC.done = ^(NSString *content) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:1];
+                SettingCell *cell = [weakSelf.tableView cellForRowAtIndexPath:indexPath];
+                
+                cell.rightLabel.text = content;
+                
+                [weakSelf.tableView reloadData];
+            };
+            [weakSelf.navigationController pushViewController:changeMobileVC animated:YES];
+            
+            
+            
+        }
+        
+        
         
     }];
     
@@ -332,6 +352,11 @@
     if ([TLUser user].email) {
         
         self.emailSettingModel.subText = [TLUser user].email;
+        
+    }
+    if ([TLUser user].mobile) {
+        
+        self.changeMobile.subText = [TLUser user].mobile;
         
     }
     

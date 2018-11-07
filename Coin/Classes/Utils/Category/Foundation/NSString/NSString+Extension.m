@@ -158,14 +158,14 @@
         
     } else {
         
-        if ([self containsString:@"kkkotc_"]) {
+//        if ([self containsString:@"kkkotc_"]) {
             NSString *imageUrl = [[NSString stringWithFormat:@"%@%@",[AppConfig config].ossDomain,self] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet] ];
             
             return imageUrl;
-        }else{
-                    NSString *imageUrl = [[NSString stringWithFormat:@"%@/%@?imageMogr2/auto-orient/strip/quality/%ld!",[AppConfig config].qiniuDomain,self,scale] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-                    return imageUrl;
-        }
+//        }else{
+//                    NSString *imageUrl = [[NSString stringWithFormat:@"%@/%@?imageMogr2/auto-orient/strip/quality/%ld!",[AppConfig config].qiniuDomain,self,scale] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+//                    return imageUrl;
+//        }
         
     }
        

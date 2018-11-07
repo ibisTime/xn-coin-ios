@@ -54,7 +54,7 @@
     self.selectedIndex =[AppConfig config].isUploadCheck ? 1 : 1;
     
     //
-    UIView *tabBarBgView = [[UIView alloc] initWithFrame:self.tabBar.bounds];
+    UIView *tabBarBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kNavigationBarHeight)];
     tabBarBgView.backgroundColor = [UIColor whiteColor];
     [self.tabBar insertSubview:tabBarBgView atIndex:0];
 //  self.tabBar.backgroundColor = [UIColor whiteColor];
