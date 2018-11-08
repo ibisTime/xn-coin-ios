@@ -130,7 +130,7 @@
         [self addNotification];
         
         // 定时器去刷新广告列表
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:5*60
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:2*60
                                                       target:self
                                                     selector:@selector(refreshAds)
                                                     userInfo:nil

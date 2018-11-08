@@ -99,7 +99,7 @@ NSString * const DOWNLOAD_OBJECT_KEY = @"object-key";
     }
     OSSPutObjectRequest * put = [OSSPutObjectRequest new];
     put.bucketName = BUCKET_NAME;
-    NSString *objectKeys = [NSString stringWithFormat:@"kkkotc_%@%@.jpg",[TLUser user].userId,[self getTimeNow]];
+    NSString *objectKeys = [NSString stringWithFormat:@"kkkotc_qrcode_/%@%@.jpg",[TLUser user].userId,[self getTimeNow]];
     put.uploadingData = imageData;
     
     put.objectKey = objectKeys;
