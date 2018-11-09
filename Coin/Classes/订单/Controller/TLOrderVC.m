@@ -43,10 +43,12 @@
 @property (nonatomic, strong) UnReadModel *ingUnReadModel;
 @property (nonatomic, strong) UnReadModel *endUnReadModel;
 
+@property (nonatomic, strong) NSTimer *timer;
 
 @end
 
 @implementation TLOrderVC
+
 
 
 - (void)viewDidLoad {
@@ -81,7 +83,7 @@
     [self setUpUI];
     
     [self setUpChildVC];
-    
+   
     //
 //    [IMAPlatform sharedInstance].conversationMgr.msgDelegate = self;
     
@@ -223,6 +225,25 @@
     [self.ingOrderListVC refresh];
     [self.endOrderListVC refresh];
     
+}
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:2*60
+                                                  target:self
+                                                selector:@selector(orderRefresh)
+                                                userInfo:nil
+                                                 repeats:YES];
+    [super viewWillAppear:animated];
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self.timer invalidate];
+    self.timer = nil;
+    [super viewWillDisappear:animated];
 }
 
 #pragma mark- 添加未读消息 的 观察
@@ -539,6 +560,11 @@
         
     }
     return _selectScrollView;
+}
+-(void)dealloc
+{
+  
+    
 }
 
 @end

@@ -73,7 +73,6 @@
 @property (nonatomic, copy) NSString *tradeType;
 
 //todo 开定时器去刷
-@property (nonatomic, strong) NSTimer *timer;
 
 @end
 
@@ -130,11 +129,7 @@
         [self addNotification];
         
         // 定时器去刷新广告列表
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:2*60
-                                                      target:self
-                                                    selector:@selector(refreshAds)
-                                                    userInfo:nil
-                                                     repeats:YES];
+        
     }];
    
     
